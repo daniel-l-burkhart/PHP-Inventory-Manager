@@ -1,0 +1,36 @@
+@mixin browser-prefixes($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -khtml-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+@mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
+  @if ($inset != "") {
+    @include browser-prefixes('box-shadow', $inset $x $y $blur $color);
+  } @else {
+    @include browser-prefixes('box-shadow', $x $y $blur $color);
+  }
+}
+
+@mixin transition($properties...) {
+
+  @if length($properties) >= 1 {
+    @include browser-prefixes('transition', $properties);
+  }
+  @else {
+    @include browser-prefixes('transition',  "all 0.2s ease-in-out 0s");
+  }
+}
+
+@mixin remove-box-shadow(){
+  @include browser-prefixes('box-shadow', 'none');
+}
+
+@mixin border-radius-separate($topLeftRadius: 5px, $topRightRadius: 4px, $bottomLeftRadius: 2px, $bottomRightRadius: 1px) {
+  -webkit-border-radius: $topLeftRadius $topRightRadius $bottomRightRadius $bottomLeftRadius;
+  -moz-border-radius: $topLeftRadius $topRightRadius $bottomRightRadius $bottomLeftRadius;
+  border-radius: $topLeftRadius $topRightRadius $bottomRightRadius $bottomLeftRadius;
+}
