@@ -27,11 +27,11 @@
 
     <?php elseif ($user['user_level'] === '2'): ?>
         <!-- Special user -->
-        <?php include_once('special_menu.php'); ?>
+        <?php include_once('manager_menu.php'); ?>
 
     <?php elseif ($user['user_level'] === '3'): ?>
         <!-- User menu -->
-        <?php include_once('user_menu.php'); ?>
+        <?php include_once('employee_menu.php'); ?>
     <?php endif; ?>
 
 <?php else: ?>

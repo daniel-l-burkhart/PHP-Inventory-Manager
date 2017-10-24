@@ -18,11 +18,7 @@
        $password   = make_HTML_compliant($db->escape($_POST['password']));
        $user_level = (int)$db->escape($_POST['level']);
        $password = sha1($password);
-        $query = "INSERT INTO users (";
-        $query .="name,username,password,user_level,status";
-        $query .=") VALUES (";
-        $query .=" '{$name}', '{$username}', '{$password}', '{$user_level}','1'";
-        $query .=")";
+        $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','0')";
         if($db->query($query)){
 
           $session->msg('s',"User account has been created! ");

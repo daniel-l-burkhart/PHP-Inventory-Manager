@@ -119,10 +119,14 @@ function authenticate_user($username = '', $password = '')
     if ($db->num_rows($result)) {
 
         $user = $db->fetch_assoc($result);
-        $password_request = sha1($password);
 
-        if ($password_request === $user['password']) {
-            return $user;
+        if($user['status'] === '1') {
+
+            $password_request = sha1($password);
+
+            if ($password_request === $user['password']) {
+                return $user;
+            }
         }
     }
     return false;
@@ -156,12 +160,16 @@ function current_user()
  */
 function find_all_user()
 {
-    $sql = "SELECT u.id,u.name,u.username,u.user_level,u.status,u.last_login,";
-    $sql .= " g.group_name";
-    $sql .= " FROM users u, user_groups g";
-    $sql .= " WHERE g.group_level=u.user_level ORDER BY u.name ASC";
+    $sql = "SELECT u.id,u.name,u.username,u.user_level,u.status,u.last_login, g.group_name FROM users u, user_groups g WHERE g.group_level=u.user_level AND u.status = '1' ORDER BY u.name ASC";
     $result = find_by_sql($sql);
     return $result;
+}
+
+function find_unapproved_users(){
+    $sql = "SELECT u.id,u.name,u.username,u.user_level,u.status,u.last_login, g.group_name FROM users u, user_groups g WHERE g.group_level=u.user_level AND u.status = '0' ORDER BY u.name ASC";
+    $result = find_by_sql($sql);
+    return $result;
+
 }
 
 /**

@@ -19,18 +19,6 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `media`
---
-
-CREATE TABLE IF NOT EXISTS `media` (
-  `id`        INT(11) UNSIGNED NOT NULL,
-  `file_name` VARCHAR(255)     NOT NULL,
-  `file_type` VARCHAR(100)     NOT NULL
-)
-  ENGINE = InnoDB
-  DEFAULT CHARSET = latin1;
-
 -- --------------------------------------------------------
 
 --
@@ -78,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username`   VARCHAR(50)      NOT NULL,
   `password`   VARCHAR(255)     NOT NULL,
   `user_level` INT(11)          NOT NULL,
-  `image`      VARCHAR(255) DEFAULT 'no_image.jpg',
   `status`     INT(1)           NOT NULL,
   `last_login` DATETIME     DEFAULT NULL
 )
@@ -105,11 +92,11 @@ CREATE TABLE IF NOT EXISTS `user_groups` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `image`, `status`, `last_login`) VALUES
-  (1, ' Admin User', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'no_image.jpg', 1, '2015-09-27 22:00:53'),
-  (2, 'Manager User', 'manager', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 'no_image.jpg', 1,
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `status`, `last_login`) VALUES
+  (1, ' Admin User', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 1, '2015-09-27 22:00:53'),
+  (2, 'Manager User', 'manager', 'ba36b97a41e7faf742ab09bf88405ac04f99599a', 2, 1,
    '2015-09-27 21:59:59'),
-  (3, 'Employee User', 'user', '12dea96fec20593566ab75692c9949596833adc9', 3, 'no_image.jpg', 1, '2015-09-27 22:00:15');
+  (3, 'Employee User', 'user', '12dea96fec20593566ab75692c9949596833adc9', 3, 1, '2015-09-27 22:00:15');
 
 --
 -- Dumping data for table `user_groups`
@@ -133,20 +120,12 @@ ALTER TABLE `categories`
   ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indexes for table `media`
---
-ALTER TABLE `media`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`);
-
---
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
-  ADD KEY `category_id` (`category_id`),
-  ADD KEY `media_id` (`media_id`);
+  ADD KEY `category_id` (`category_id`);
 
 --
 -- Indexes for table `sales`
