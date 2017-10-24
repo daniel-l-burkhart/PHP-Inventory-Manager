@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?php if (!empty($page_title))
-            echo remove_junk($page_title);
+            echo make_HTML_compliant($page_title);
         elseif (!empty($user))
             echo ucfirst($user['name']);
         else echo "Simple inventory System"; ?>

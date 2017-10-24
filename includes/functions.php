@@ -7,22 +7,16 @@ function real_escape($str){
   return $escape;
 }
 
-function remove_junk($str){
+function make_HTML_compliant($str){
   $str = nl2br($str);
   $str = htmlspecialchars(strip_tags($str, ENT_QUOTES));
   return $str;
 }
 
-function first_character($str){
-  $val = str_replace('-'," ",$str);
-  $val = ucfirst($val);
-  return $val;
-}
-
 function validate_fields($var){
   global $errors;
   foreach ($var as $field) {
-    $val = remove_junk($_POST[$field]);
+    $val = make_HTML_compliant($_POST[$field]);
     if(isset($val) && $val==''){
       $errors = $field ." can't be blank.";
       return $errors;
@@ -30,13 +24,13 @@ function validate_fields($var){
   }
 }
 
-function display_msg($msg =''){
+function make_alert_msg($msg =''){
    $output = array();
    if(!empty($msg)) {
       foreach ($msg as $key => $value) {
          $output  = "<div class=\"alert alert-{$key}\">";
          $output .= "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>";
-         $output .= remove_junk(first_character($value));
+         $output .= make_HTML_compliant(uppercase_first_letter($value));
          $output .= "</div>";
       }
       return $output;
@@ -45,16 +39,19 @@ function display_msg($msg =''){
    }
 }
 
-function redirect($url, $permanent = false)
+function redirect_to_page($url, $permanent = false)
 {
     if (headers_sent() === false)
     {
-      header('Location: ' . $url, true, ($permanent === true) ? 301 : 302);
+        if (($permanent === true)) {
+            header('Location: ' . $url, true, 301);
+        } else {
+            header('Location: ' . $url, true, 302);
+        }
     }
 
     exit();
 }
-
 
 function total_price($totals){
    $sum = 0;
@@ -68,10 +65,12 @@ function total_price($totals){
 }
 
 function read_date($str){
-     if($str)
-      return date('F j, Y, g:i:s a', strtotime($str));
-     else
-      return null;
+     if($str) {
+         return date('F j, Y, g:i:s a', strtotime($str));
+     }
+     else {
+         return null;
+     }
   }
 
 function make_date(){
@@ -93,5 +92,8 @@ function randString($length = 5)
   return $str;
 }
 
-
-?>
+function uppercase_first_letter($str){
+    $val = str_replace('-'," ",$str);
+    $val = ucfirst($val);
+    return $val;
+}

@@ -10,18 +10,18 @@ $results = '';
     validate_fields($req_dates);
 
     if(empty($errors)) {
-        $start_date = remove_junk($db->escape($_POST['start-date']));
-        $end_date = remove_junk($db->escape($_POST['end-date']));
+        $start_date = make_HTML_compliant($db->escape($_POST['start-date']));
+        $end_date = make_HTML_compliant($db->escape($_POST['end-date']));
         $results = find_sale_by_dates($start_date, $end_date);
     }
     else {
         $session->msg("d", $errors);
-        redirect('sales_report.php', false);
+        redirect_to_page('sales_report.php', false);
     }
 
   } else {
     $session->msg("d", "Select dates");
-    redirect('sales_report.php', false);
+    redirect_to_page('sales_report.php', false);
   }
 ?>
 <!doctype html>
@@ -96,14 +96,14 @@ $results = '';
         <tbody>
           <?php foreach($results as $result): ?>
            <tr>
-              <td class=""><?php echo remove_junk($result['date']);?></td>
+              <td class=""><?php echo make_HTML_compliant($result['date']);?></td>
               <td class="desc">
-                <h6><?php echo remove_junk(ucfirst($result['name']));?></h6>
+                <h6><?php echo make_HTML_compliant(ucfirst($result['name']));?></h6>
               </td>
-              <td class="text-right"><?php echo remove_junk($result['buy_price']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['sale_price']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['total_sales']);?></td>
-              <td class="text-right"><?php echo remove_junk($result['total_saleing_price']);?></td>
+              <td class="text-right"><?php echo make_HTML_compliant($result['buy_price']);?></td>
+              <td class="text-right"><?php echo make_HTML_compliant($result['sale_price']);?></td>
+              <td class="text-right"><?php echo make_HTML_compliant($result['total_sales']);?></td>
+              <td class="text-right"><?php echo make_HTML_compliant($result['total_saleing_price']);?></td>
           </tr>
         <?php endforeach; ?>
         </tbody>
@@ -126,7 +126,7 @@ $results = '';
   <?php
     else:
         $session->msg("d", "Sorry no sales has been found. ");
-        redirect('sales_report.php', false);
+        redirect_to_page('sales_report.php', false);
      endif;
   ?>
 </body>

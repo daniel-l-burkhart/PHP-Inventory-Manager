@@ -12,7 +12,7 @@
 <?php include_once('../header.php'); ?>
 <div class="row">
   <div class="col-md-6">
-    <?php echo display_msg($msg); ?>
+    <?php echo make_alert_msg($msg); ?>
   </div>
 </div>
   <div class="row">
@@ -39,9 +39,9 @@
              <?php foreach ($sales as $sale):?>
              <tr>
                <td class="text-center"><?php echo count_id();?></td>
-               <td><?php echo remove_junk($sale['name']); ?></td>
+               <td><?php echo make_HTML_compliant($sale['name']); ?></td>
                <td class="text-center"><?php echo (int)$sale['qty']; ?></td>
-               <td class="text-center"><?php echo remove_junk($sale['total_selling_price']); ?></td>
+               <td class="text-center"><?php echo make_HTML_compliant($sale['total_selling_price']); ?></td>
                <td class="text-center"><?php echo $sale['date']; ?></td>
              </tr>
              <?php endforeach;?>

@@ -3,12 +3,12 @@
 
 $req_fields = array('username', 'password');
 validate_fields($req_fields);
-$username = remove_junk($_POST['username']);
-$password = remove_junk($_POST['password']);
+$username = make_HTML_compliant($_POST['username']);
+$password = make_HTML_compliant($_POST['password']);
 
 if (empty($errors)) {
 
-    $user = authenticate($username, $password);
+    $user = authenticate_user($username, $password);
 
     if ($user) {
 
@@ -18,30 +18,30 @@ if (empty($errors)) {
         if ($user['user_level'] === '1') {
 
             $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-            redirect('admin.php', false);
+            redirect_to_page('admin.php', false);
 
         } elseif ($user['user_level'] === '2') {
 
             $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-            redirect('special.php', false);
+            redirect_to_page('special.php', false);
 
         } else {
 
             $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-            redirect('home.php', false);
+            redirect_to_page('home.php', false);
 
         }
 
     } else {
 
         $session->msg("d", "Sorry Username/Password incorrect.");
-        redirect('index.php', false);
+        redirect_to_page('index.php', false);
     }
 
 } else {
 
     $session->msg("d", $errors);
-    redirect('login.php', false);
+    redirect_to_page('login.php', false);
 }
 
 ?>

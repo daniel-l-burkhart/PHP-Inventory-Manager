@@ -2,16 +2,23 @@
 ob_start();
 require_once('includes/load.php');
 if ($session->isUserLoggedIn(true)) {
-    redirect('home.php', false);
+    redirect_to_page('home.php', false);
 }
 ?>
 <?php include_once('indexHeader.php'); ?>
+
+<div class="container">
+<div class="jumbotron text-center">
+    <h2>Welcome to the inventory system!</h2>
+</div>
+<br/>
 <div class="login-page">
+
     <div class="text-center">
-        <h1>Welcome</h1>
-        <p>Sign in to start your session</p>
+        <h3>Login</h3>
     </div>
-    <?php echo display_msg($msg); ?>
+
+    <?php echo make_alert_msg($msg); ?>
     <form method="post" action="auth.php" class="clearfix">
         <div class="form-group">
             <label for="username" class="control-label">Username</label>
@@ -27,10 +34,8 @@ if ($session->isUserLoggedIn(true)) {
     </form>
 </div>
 
-<div class="text-center">
-<div class="panel-value pull-left">
-    <h2 class="margin-top"> Or just browse products as a guest. </h2>
-    <a href="/project2/product/product.php">Click here to browse products.</a>
+    <div class="col-md-12">
+    <h2 class="text-center"> <a href="/project2/product/product.php">Or just browse products as a guest. </a></h2>
 
 </div>
 </div>

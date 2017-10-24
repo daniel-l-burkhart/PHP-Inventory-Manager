@@ -1,7 +1,15 @@
 <?php
 require_once('load.php');
 
-function find_all($table)
+/**
+ * Gets all records from a table
+ *
+ * @param $table
+ *      The name of the table
+ * @return array
+ *      Array of all the records from the table.
+ */
+function get_all_from_table($table)
 {
     global $db;
     if (tableExists($table)) {
@@ -9,6 +17,13 @@ function find_all($table)
     }
 }
 
+/**
+ * Runs SQL query and returns the result
+ * @param $sql
+ *      The SQL command, 'Select * from Table'
+ * @return array
+ *      The array of the result set.
+ */
 function find_by_sql($sql)
 {
     global $db;
@@ -17,7 +32,17 @@ function find_by_sql($sql)
     return $result_set;
 }
 
-function find_by_id($table, $id)
+/**
+ * Finds a single record from a table, used in "edit."
+ *
+ * @param $table
+ *      The table
+ * @param $id
+ *      The item's id
+ * @return array|null
+ *      The result if it exists, null otherwise.
+ */
+function find_record_by_id($table, $id)
 {
     global $db;
     $id = (int)$id;
@@ -31,6 +56,16 @@ function find_by_id($table, $id)
     }
 }
 
+/**
+ * Deletes a record by ID
+ *
+ * @param $table
+ *      The table
+ * @param $id
+ *      The ID
+ * @return bool
+ *      True if effective, false otherwise
+ */
 function delete_by_id($table, $id)
 {
     global $db;
@@ -43,17 +78,14 @@ function delete_by_id($table, $id)
     }
 }
 
-function count_by_id($table)
-{
-    global $db;
-    if (tableExists($table)) {
-        $sql = "SELECT COUNT(id) AS total FROM " . $db->escape($table);
-        $result = $db->query($sql);
-        return ($db->fetch_assoc($result));
-    }
-}
-
-
+/**
+ * Makes sure the table passed in exists.
+ *
+ * @param $table
+ *      The table
+ * @return bool
+ *      True if table exists, false otherwise.
+ */
 function tableExists($table)
 {
     global $db;
@@ -67,7 +99,17 @@ function tableExists($table)
     }
 }
 
-function authenticate($username = '', $password = '')
+/**
+ * Called at login
+ *
+ * @param string $username
+ *      The username
+ * @param string $password
+ *      The password
+ * @return array|bool|null
+ *      returns the user if successful, false otherwise.
+ */
+function authenticate_user($username = '', $password = '')
 {
     global $db;
     $username = $db->escape($username);
@@ -86,6 +128,12 @@ function authenticate($username = '', $password = '')
     return false;
 }
 
+/**
+ * If the user is logged in, gets the active user.
+ *
+ * @return array|null
+ *      Returns the user if the logged in, null otherwise.
+ */
 function current_user()
 {
     static $current_user;
@@ -94,16 +142,20 @@ function current_user()
     if (!$current_user) {
         if (isset($_SESSION['user_id'])) {
             $user_id = intval($_SESSION['user_id']);
-            $current_user = find_by_id('users', $user_id);
+            $current_user = find_record_by_id('users', $user_id);
         }
     }
     return $current_user;
 }
 
+/**
+ * Gets all users - used at users.php with admin access level
+ *
+ * @return array
+ *      All the users
+ */
 function find_all_user()
 {
-    // global $db;
-
     $sql = "SELECT u.id,u.name,u.username,u.user_level,u.status,u.last_login,";
     $sql .= " g.group_name";
     $sql .= " FROM users u, user_groups g";
@@ -112,29 +164,36 @@ function find_all_user()
     return $result;
 }
 
+/**
+ * Updates user table with latest timestamp of successful login.
+ *
+ * @param $user_id
+ *      The user's ID
+ * @return bool
+ *      True if effective, false otherwise
+ */
 function updateLastLogIn($user_id)
 {
     global $db;
     $date = make_date();
     $sql = "UPDATE users SET last_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
     $result = $db->query($sql);
-    return ($result && $db->affected_rows() === 1 ? true : false);
-}
 
-
-function find_by_groupName($val)
-{
-    global $db;
-    $sql = "SELECT group_name FROM user_groups WHERE group_name = '{$db->escape($val)}' LIMIT 1 ";
-    $result = $db->query($sql);
-
-    if ($db->num_rows($result) === 0) {
+    if ($result && $db->affected_rows() === 1) {
         return true;
     } else {
         return false;
     }
 }
 
+/**
+ * Finds the group level from the group table - admin, manager, etc
+ *
+ * @param $level
+ *      The level of the user
+ * @return bool
+ *      True if not found, false otherwise
+ */
 function find_by_groupLevel($level)
 {
     global $db;
@@ -149,6 +208,14 @@ function find_by_groupLevel($level)
 }
 
 
+/**
+ * Validates that the user has the right access level
+ *
+ * @param $require_level
+ *      The require level
+ * @return bool
+ *      True if user has the privilege, false otherwise.
+ */
 function validate_access_level($require_level)
 {
     global $session;
@@ -157,12 +224,12 @@ function validate_access_level($require_level)
 
     if (!$session->isUserLoggedIn()) {
         $session->msg('d', 'Please login...');
-        redirect('index.php', false);
+        redirect_to_page('index.php', false);
     }
 
     if ($login_level['group_status'] === '0') {
         $session->msg('d', 'This level user has been removed!');
-        redirect('home.php', false);
+        redirect_to_page('home.php', false);
     }
 
     if ($current_user['user_level'] <= (int)$require_level) {
@@ -170,20 +237,30 @@ function validate_access_level($require_level)
 
     } else {
         $session->msg("d", "Sorry! you dont have permission to view the page.");
-        redirect('home.php', false);
+        redirect_to_page('home.php', false);
     }
 
 }
 
+/**
+ * Gets the user level
+ * @return mixed
+ *      Returns the user level if it exists
+ */
 function get_user_level()
 {
     $current_user = current_user();
     return $current_user['user_level'];
 }
 
+/**
+ * Gets all of the products from the product table.
+ *
+ * @return array
+ *      The list of products
+ */
 function get_all_products()
 {
-    //global $db;
     $sql = " SELECT p.id,p.name,p.quantity,p.buy_price,p.sale_price,p.date,c.name";
     $sql .= " AS category";
     $sql .= " FROM products p, categories c";
@@ -193,10 +270,17 @@ function get_all_products()
     return find_by_sql($sql);
 }
 
+/**
+ * Finds the product by name
+ * @param $product_name
+ *      The name of the product
+ * @return array
+ *      The result
+ */
 function find_product_by_title($product_name)
 {
     global $db;
-    $p_name = remove_junk($db->escape($product_name));
+    $p_name = make_HTML_compliant($db->escape($product_name));
     $sql = "SELECT name FROM products WHERE name like '%$p_name%' LIMIT 5";
     $result = find_by_sql($sql);
     return $result;
@@ -204,7 +288,6 @@ function find_product_by_title($product_name)
 
 function find_all_product_info_by_title($title)
 {
-    // global $db;
     $sql = "SELECT * FROM products ";
     $sql .= " WHERE name ='{$title}'";
     $sql .= " LIMIT 1";
@@ -250,7 +333,6 @@ function find_highest_selling_product($limit)
 
 function find_all_sales()
 {
-    // global $db;
     $sql = "SELECT s.id,s.qty,s.price,s.date,p.name";
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE s.product_id = p.id";
@@ -292,7 +374,6 @@ function find_sale_by_dates($start_date, $end_date)
 
 function dailySales($year, $month)
 {
-    // global $db;
     $sql = "SELECT s.qty,";
     $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
     $sql .= "SUM(p.sale_price * s.qty) AS total_selling_price";
@@ -305,7 +386,6 @@ function dailySales($year, $month)
 
 function monthlySales($year)
 {
-    //global $db;
     $sql = "SELECT s.qty,";
     $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
     $sql .= "SUM(p.sale_price * s.qty) AS total_selling_price";

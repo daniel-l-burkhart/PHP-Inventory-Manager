@@ -2,7 +2,7 @@
   ob_start();
   require_once('includes/load.php');
   if($session->isUserLoggedIn(true)) {
-      redirect('home.php', false);
+      redirect_to_page('home.php', false);
   }
 ?>
 
@@ -11,7 +11,7 @@
        <h1>Welcome</h1>
        <p>Sign in to start your session</p>
      </div>
-     <?php echo display_msg($msg); ?>
+     <?php echo make_alert_msg($msg); ?>
       <form method="post" action="auth.php" class="clearfix">
         <div class="form-group">
               <label for="username" class="control-label">Username</label>

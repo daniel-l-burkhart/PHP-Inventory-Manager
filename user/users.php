@@ -19,7 +19,7 @@
 
 <div class="container">
    <div class="col-md-12">
-     <?php echo display_msg($msg); ?>
+     <?php echo make_alert_msg($msg); ?>
    </div>
 </div>
 <br/>
@@ -51,9 +51,9 @@
         <?php foreach($all_users as $a_user): ?>
           <tr>
            <td class="text-center"><?php echo count_id();?></td>
-           <td><?php echo remove_junk(ucwords($a_user['name']))?></td>
-           <td><?php echo remove_junk(ucwords($a_user['username']))?></td>
-           <td class="text-center"><?php echo remove_junk(ucwords($a_user['group_name']))?></td>
+           <td><?php echo make_HTML_compliant(ucwords($a_user['name']))?></td>
+           <td><?php echo make_HTML_compliant(ucwords($a_user['username']))?></td>
+           <td class="text-center"><?php echo make_HTML_compliant(ucwords($a_user['group_name']))?></td>
 
            <td><?php echo read_date($a_user['last_login'])?></td>
            <td class="text-center">

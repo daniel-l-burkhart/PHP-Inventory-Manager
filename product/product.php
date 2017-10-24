@@ -8,7 +8,7 @@ $products = get_all_products();
 
     <div class="row">
         <div class="col-md-12">
-            <?php echo display_msg($msg); ?>
+            <?php echo make_alert_msg($msg); ?>
         </div>
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -51,24 +51,24 @@ $products = get_all_products();
                                 </td>
 
                                 <td>
-                                    <?php echo remove_junk($product['name']); ?>
+                                    <?php echo make_HTML_compliant($product['name']); ?>
                                 </td>
 
                                 <td class="text-center">
-                                    <?php echo remove_junk($product['category']); ?>
+                                    <?php echo make_HTML_compliant($product['category']); ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php echo remove_junk($product['quantity']); ?>
+                                    <?php echo make_HTML_compliant($product['quantity']); ?>
                                 </td>
 
                                 <?php if (get_user_level() == '1' || get_current_user() === '2'): ?>
                                     <td class="text-center">
-                                        <?php echo remove_junk($product['buy_price']); ?>
+                                        <?php echo make_HTML_compliant($product['buy_price']); ?>
                                     </td>
                                 <?php endif; ?>
 
                                 <td class="text-center">
-                                    <?php echo remove_junk($product['sale_price']); ?>
+                                    <?php echo make_HTML_compliant($product['sale_price']); ?>
                                 </td>
 
                                 <?php if (get_user_level() === '1' || get_current_user() === '2'): ?>

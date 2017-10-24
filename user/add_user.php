@@ -3,7 +3,7 @@
   require_once('../includes/load.php');
 
   validate_access_level(1);
-  $groups = find_all('user_groups');
+  $groups = get_all_from_table('user_groups');
 ?>
 <?php
 
@@ -13,9 +13,9 @@
    validate_fields($req_fields);
 
    if(empty($errors)){
-           $name   = remove_junk($db->escape($_POST['full-name']));
-       $username   = remove_junk($db->escape($_POST['username']));
-       $password   = remove_junk($db->escape($_POST['password']));
+           $name   = make_HTML_compliant($db->escape($_POST['full-name']));
+       $username   = make_HTML_compliant($db->escape($_POST['username']));
+       $password   = make_HTML_compliant($db->escape($_POST['password']));
        $user_level = (int)$db->escape($_POST['level']);
        $password = sha1($password);
         $query = "INSERT INTO users (";
@@ -26,21 +26,21 @@
         if($db->query($query)){
 
           $session->msg('s',"User account has been created! ");
-          redirect('add_user.php', false);
+          redirect_to_page('add_user.php', false);
         } else {
           $session->msg('d',' Sorry failed to create account!');
-          redirect('add_user.php', false);
+          redirect_to_page('add_user.php', false);
         }
    } else {
      $session->msg("d", $errors);
-      redirect('add_user.php',false);
+      redirect_to_page('add_user.php',false);
    }
  }
 ?>
 
 <?php include_once('../header.php'); ?>
 
-  <?php echo display_msg($msg); ?>
+  <?php echo make_alert_msg($msg); ?>
 <div class="container">
   <div class="row">
     <div class="panel panel-default">

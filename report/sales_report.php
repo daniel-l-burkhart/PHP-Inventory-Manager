@@ -6,7 +6,7 @@ $page_title = 'Sale Report';
 <?php include_once('../header.php'); ?>
 <div class="row">
   <div class="col-md-6">
-    <?php echo display_msg($msg); ?>
+    <?php echo make_alert_msg($msg); ?>
   </div>
 </div>
 <div class="row">

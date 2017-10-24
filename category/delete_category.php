@@ -3,10 +3,10 @@
   validate_access_level(1);
 ?>
 <?php
-  $category = find_by_id('categories',(int)$_GET['id']);
+  $category = find_record_by_id('categories',(int)$_GET['id']);
   if(!$category){
     $session->msg("d","Missing Category id.");
-    redirect('category.php');
+    redirect_to_page('category.php');
   }
 ?>
 <?php
@@ -14,9 +14,9 @@
 
   if($delete_id){
       $session->msg("s","Category deleted.");
-      redirect('category.php');
+      redirect_to_page('category.php');
   } else {
       $session->msg("d","Category deletion failed.");
-      redirect('category.php');
+      redirect_to_page('category.php');
   }
 ?>
