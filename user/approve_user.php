@@ -7,6 +7,47 @@ require_once('../includes/load.php');
 validate_access_level(1);
 $unapproved_users = find_unapproved_users();
 ?>
+
+<?php
+
+if(empty($errors)){
+
+    if(isset($_POST['radio'])){
+
+        $value= $db->escape($_POST['radio']);
+        if($value === 'approve'){
+
+            $userID   = make_HTML_compliant($db->escape($_POST['uID']));
+
+            $query = "UPDATE users SET status = '1' WHERE id = '{$userID}';";
+
+            if($db->query($query)){
+
+                $session->msg('s',"User account has been approved! ");
+                redirect_to_page('approve_user.php', false);
+            } else {
+                $session->msg('d',' Sorry failed to approve!');
+                redirect_to_page('approve_user.php', false);
+            }
+
+        } elseif ($value === 'reject') {
+
+        $userID   = make_HTML_compliant($db->escape($_POST['uID']));
+
+        $query = "DELETE FROM users WHERE id = '{$userID}';";
+
+        }
+
+    }
+
+} else {
+    $session->msg("d", $errors);
+    redirect_to_page('approve_user.php',false);
+}
+
+
+?>
+
 <?php include_once('../header.php'); ?>
 
 <div class="container">
@@ -33,30 +74,35 @@ $unapproved_users = find_unapproved_users();
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th class="text-center"">#</th>
+
                         <th>Name </th>
                         <th>Username</th>
                         <th class="text-center">User Role</th>
-                        <th>Last Login</th>
                         <th class="text-center" >Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php foreach($unapproved_users as $a_user): ?>
                         <tr>
-                            <td class="text-center"><?php echo count_id();?></td>
                             <td><?php echo make_HTML_compliant(ucwords($a_user['name']))?></td>
                             <td><?php echo make_HTML_compliant(ucwords($a_user['username']))?></td>
                             <td class="text-center"><?php echo make_HTML_compliant(ucwords($a_user['group_name']))?></td>
 
-                            <td><?php echo read_date($a_user['last_login'])?></td>
                             <td class="text-center">
-                                <div class="btn-group">
-                                    <a href="edit_user.php?id=<?php echo (int)$a_user['id'];?>" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit">
-                                        <i class="glyphicon glyphicon-pencil"></i>
-                                    </a>
 
-                                </div>
+                                <form method="post" action="approve_user.php">
+                                    <label for="approve">Approve</label>
+                                    <input id="approve" type="radio" name="radio" value="approve">
+
+                                    <label for="reject">Reject</label>
+                                    <input id="reject" type="radio" name="radio" value="reject">
+
+                                    <input name="uID" type="hidden" value="<?php echo make_HTML_compliant($a_user['id'])?>">
+
+                                    <input type="submit" class="btn btn-primary">
+
+                                </form>
+
                             </td>
                         </tr>
                     <?php endforeach;?>

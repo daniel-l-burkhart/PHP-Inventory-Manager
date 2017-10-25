@@ -15,22 +15,23 @@ if (empty($errors)) {
         $session->login($user['id']);
         updateLastLogIn($user['id']);
 
-        if ($user['user_level'] === '1') {
+            if ($user['user_level'] === '1') {
 
-            $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-            redirect_to_page('admin.php', false);
+                $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
+                redirect_to_page('admin.php', false);
 
-        } elseif ($user['user_level'] === '2') {
+            } elseif ($user['user_level'] === '2') {
 
-            $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-            redirect_to_page('special.php', false);
+                $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
+                redirect_to_page('special.php', false);
 
-        } else {
+            } else {
 
-            $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-            redirect_to_page('home.php', false);
+                $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
+                redirect_to_page('home.php', false);
 
-        }
+            }
+
 
     } else {
 

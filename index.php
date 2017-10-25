@@ -5,6 +5,7 @@ if ($session->isUserLoggedIn(true)) {
     redirect_to_page('home.php', false);
 }
 ?>
+
 <?php include_once('indexHeader.php'); ?>
 
 <div class="container">

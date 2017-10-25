@@ -6,6 +6,8 @@
   }
 ?>
 
+<?php include_once('header.php'); ?>
+
 <div class="login-page">
     <div class="text-center">
        <h1>Welcome</h1>
@@ -26,4 +28,5 @@
         </div>
     </form>
 </div>
-<?php include_once('header.php'); ?>
+
+<?php include_once('footer.php'); ?>

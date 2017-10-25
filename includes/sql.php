@@ -114,7 +114,7 @@ function authenticate_user($username = '', $password = '')
     global $db;
     $username = $db->escape($username);
     $password = $db->escape($password);
-    $sql = sprintf("SELECT id,username,password,user_level FROM users WHERE username ='%s' LIMIT 1", $username);
+    $sql = sprintf("SELECT id,username,password,user_level, status FROM users WHERE username ='%s' LIMIT 1", $username);
     $result = $db->query($sql);
     if ($db->num_rows($result)) {
 
