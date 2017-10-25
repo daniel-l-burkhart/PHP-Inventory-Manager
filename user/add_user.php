@@ -2,7 +2,7 @@
   $page_title = 'Add User';
   require_once('../includes/load.php');
 
-  validate_access_level(1);
+  //validate_access_level(1);
   $groups = get_all_from_table('user_groups');
 ?>
 <?php
@@ -21,10 +21,10 @@
         $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','0')";
         if($db->query($query)){
 
-          $session->msg('s',"User account has been created! ");
+          $session->msg('s',"User account has been requested! ");
           redirect_to_page('add_user.php', false);
         } else {
-          $session->msg('d',' Sorry failed to create account!');
+          $session->msg('d',' Sorry failed to create request!');
           redirect_to_page('add_user.php', false);
         }
    } else {
@@ -69,7 +69,7 @@
                 </select>
             </div>
             <div class="form-group clearfix">
-              <button type="submit" name="add_user" class="btn btn-success">Add User</button>
+              <button type="submit" name="add_user" class="btn btn-success">Request User Account</button>
             </div>
         </form>
         </div>

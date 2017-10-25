@@ -36,6 +36,15 @@ if(empty($errors)){
 
         $query = "DELETE FROM users WHERE id = '{$userID}';";
 
+            if($db->query($query)){
+
+                $session->msg('s',"Rejected User has been deleted! ");
+                redirect_to_page('approve_user.php', false);
+            } else {
+                $session->msg('d',' Sorry failed to reject!');
+                redirect_to_page('approve_user.php', false);
+            }
+
         }
 
     }
@@ -99,6 +108,7 @@ if(empty($errors)){
 
                                     <input name="uID" type="hidden" value="<?php echo make_HTML_compliant($a_user['id'])?>">
 
+                                    <br/>
                                     <input type="submit" class="btn btn-primary">
 
                                 </form>
