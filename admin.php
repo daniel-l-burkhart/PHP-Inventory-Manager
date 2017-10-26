@@ -70,7 +70,6 @@
           <table class="table table-striped table-bordered table-condensed">
        <thead>
          <tr>
-           <th class="text-center" style="width: 50px;">#</th>
            <th>Product Name</th>
            <th>Date</th>
            <th>Total Sale</th>
@@ -79,7 +78,6 @@
        <tbody>
          <?php foreach ($recent_sales as  $recent_sale): ?>
          <tr>
-           <td class="text-center"><?php echo count_id();?></td>
            <td>
             <a href="sale/edit_sale.php?id=<?php echo (int)$recent_sale['id']; ?>">
              <?php echo make_HTML_compliant(uppercase_first_letter($recent_sale['name'])); ?>

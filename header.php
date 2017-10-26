@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css"/>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-<!--    <link rel="stylesheet" href="/project2/libs/css/main.css"/>-->
 </head>
 <body>
 

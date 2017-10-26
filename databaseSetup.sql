@@ -6,6 +6,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+-- --------------------------------------------------------
 --
 -- Table structure for table `categories`
 --
@@ -17,10 +18,8 @@ CREATE TABLE IF NOT EXISTS `categories` (
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
--- --------------------------------------------------------
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `products`
 --
@@ -39,7 +38,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   DEFAULT CHARSET = utf8;
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `sales`
 --
@@ -55,7 +53,6 @@ CREATE TABLE IF NOT EXISTS `sales` (
   DEFAULT CHARSET = utf8;
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `users`
 --
@@ -105,7 +102,7 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `user_level`, `status
 INSERT INTO `user_groups` (`id`, `group_name`, `group_level`, `group_status`) VALUES
   (1, 'Admin', 1, 1),
   (2, 'Manager', 2, 1),
-  (3, 'User', 3, 1);
+  (3, 'Employee', 3, 1);
 
 
 --
@@ -157,11 +154,7 @@ ALTER TABLE `user_groups`
 --
 ALTER TABLE `categories`
   MODIFY `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `media`
---
-ALTER TABLE `media`
-  MODIFY `id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `products`
 --

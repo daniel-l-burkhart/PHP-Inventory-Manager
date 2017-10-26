@@ -1,12 +1,6 @@
 <?php
  $errors = array();
 
-function real_escape($str){
-  global $con;
-  $escape = mysqli_real_escape_string($con,$str);
-  return $escape;
-}
-
 function make_HTML_compliant($str){
   $str = nl2br($str);
   $str = htmlspecialchars(strip_tags($str, ENT_QUOTES));
@@ -28,8 +22,7 @@ function make_alert_msg($msg =''){
    $output = array();
    if(!empty($msg)) {
       foreach ($msg as $key => $value) {
-         $output  = "<div class=\"alert alert-{$key}\">";
-         $output .= "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>";
+         $output  = "<div class=\"alert alert-{$key}\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>";
          $output .= make_HTML_compliant(uppercase_first_letter($value));
          $output .= "</div>";
       }
@@ -43,7 +36,7 @@ function redirect_to_page($url, $permanent = false)
 {
     if (headers_sent() === false)
     {
-        if (($permanent === true)) {
+        if ($permanent === true) {
             header('Location: ' . $url, true, 301);
         } else {
             header('Location: ' . $url, true, 302);
@@ -75,21 +68,6 @@ function read_date($str){
 
 function make_date(){
   return strftime("%Y-%m-%d %H:%M:%S", time());
-}
-
-function count_id(){
-  static $count = 1;
-  return $count++;
-}
-
-function randString($length = 5)
-{
-  $str='';
-  $cha = "0123456789abcdefghijklmnopqrstuvwxyz";
-
-  for($x=0; $x<$length; $x++)
-   $str .= $cha[mt_rand(0,strlen($cha))];
-  return $str;
 }
 
 function uppercase_first_letter($str){

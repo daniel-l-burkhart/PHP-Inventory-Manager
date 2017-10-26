@@ -6,7 +6,7 @@
 <?php
   $product = find_record_by_id('products',(int)$_GET['id']);
   if(!$product){
-    $session->msg("d","Missing Product id.");
+    $session->msg("danger","Missing Product id.");
     redirect_to_page('product.php');
   }
 ?>
@@ -14,10 +14,10 @@
 <?php
   $delete_id = delete_by_id('products',(int)$product['id']);
   if($delete_id){
-      $session->msg("s","Products deleted.");
+      $session->msg("success","Products deleted.");
       redirect_to_page('product.php');
   } else {
-      $session->msg("d","Products deletion failed.");
+      $session->msg("danger","Products deletion failed.");
       redirect_to_page('product.php');
   }
 ?>

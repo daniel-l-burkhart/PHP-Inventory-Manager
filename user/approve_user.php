@@ -3,7 +3,6 @@ $page_title = 'All User';
 require_once('../includes/load.php');
 ?>
 <?php
-
 validate_access_level(1);
 $unapproved_users = find_unapproved_users();
 ?>
@@ -14,34 +13,34 @@ if(empty($errors)){
 
     if(isset($_POST['radio'])){
 
-        $value= $db->escape($_POST['radio']);
+        $value= $db->get_escape_string($_POST['radio']);
         if($value === 'approve'){
 
-            $userID   = make_HTML_compliant($db->escape($_POST['uID']));
+            $userID   = make_HTML_compliant($db->get_escape_string($_POST['uID']));
 
             $query = "UPDATE users SET status = '1' WHERE id = '{$userID}';";
 
-            if($db->query($query)){
+            if($db->run_query($query)){
 
-                $session->msg('s',"User account has been approved! ");
+                $session->msg('success',"User account has been approved! ");
                 redirect_to_page('approve_user.php', false);
             } else {
-                $session->msg('d',' Sorry failed to approve!');
+                $session->msg('danger',' Sorry failed to approve!');
                 redirect_to_page('approve_user.php', false);
             }
 
         } elseif ($value === 'reject') {
 
-        $userID   = make_HTML_compliant($db->escape($_POST['uID']));
+        $userID   = make_HTML_compliant($db->get_escape_string($_POST['uID']));
 
         $query = "DELETE FROM users WHERE id = '{$userID}';";
 
-            if($db->query($query)){
+            if($db->run_query($query)){
 
-                $session->msg('s',"Rejected User has been deleted! ");
+                $session->msg('success',"Rejected User has been deleted! ");
                 redirect_to_page('approve_user.php', false);
             } else {
-                $session->msg('d',' Sorry failed to reject!');
+                $session->msg('danger',' Sorry failed to reject!');
                 redirect_to_page('approve_user.php', false);
             }
 
@@ -50,7 +49,7 @@ if(empty($errors)){
     }
 
 } else {
-    $session->msg("d", $errors);
+    $session->msg("danger", $errors);
     redirect_to_page('approve_user.php',false);
 }
 

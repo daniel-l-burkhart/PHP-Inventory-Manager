@@ -38,12 +38,12 @@ if ($session->isUserLoggedIn(true)) {
 
     <div class="col-md-12 panel text-center">
         <h2>New Employee?</h2>
-        <a href="/project2/user/add_user.php">Click here to request account.</a>
+        <a href="/~dburkhart1/project2/user/add_user.php">Click here to request account.</a>
     </div>
 
 
     <div class="col-md-12">
-        <h2 class="text-center"><a href="/project2/product/product.php">Or just browse products as a guest. </a></h2>
+        <h2 class="text-center"><a href="/~dburkhart1/project2/product/product.php">Or just browse products as a guest. </a></h2>
     </div>
 
 

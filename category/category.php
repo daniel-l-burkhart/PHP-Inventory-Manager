@@ -5,30 +5,39 @@ validate_access_level(1);
 
 $all_categories = get_all_from_table('categories')
 ?>
+
 <?php
-if (isset($_POST['add_cat'])) {
+if (isset($_POST['add_new_category'])) {
 
     $req_field = array('category-name');
     validate_fields($req_field);
-    $cat_name = make_HTML_compliant($db->escape($_POST['category-name']));
+
+    $new_category_name = make_HTML_compliant($db->get_escape_string($_POST['category-name']));
 
     if (empty($errors)) {
-        $sql = "INSERT INTO categories (name)";
-        $sql .= " VALUES ('{$cat_name}')";
-        if ($db->query($sql)) {
-            $session->msg("s", "Successfully Added Category");
+        $sql = "INSERT INTO categories (name) VALUES ('{$new_category_name}')";
+
+        if ($db->run_query($sql)) {
+            $session->msg("success", "Successfully Added Category");
             redirect_to_page('category.php', false);
         } else {
-            $session->msg("d", "Sorry Failed to insert.");
+            $session->msg("danger", "Sorry Failed to insert.");
             redirect_to_page('category.php', false);
         }
+
     } else {
-        $session->msg("d", $errors);
+        $session->msg("danger", $errors);
         redirect_to_page('category.php', false);
     }
 }
 ?>
 <?php include_once('../header.php'); ?>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Categories!</h1>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-12">
@@ -44,14 +53,16 @@ if (isset($_POST['add_cat'])) {
                     <span>Add New Category</span>
                 </strong>
             </div>
-            <div class="panel-body">
+
+           <div class="panel-body">
                 <form method="post" action="category.php">
                     <div class="form-group">
                         <input type="text" class="form-control" name="category-name" placeholder="Category Name">
                     </div>
-                    <button type="submit" name="add_cat" class="btn btn-primary">Add category</button>
+                    <button type="submit" name="add_new_category" class="btn btn-primary">Add category</button>
                 </form>
             </div>
+
         </div>
     </div>
     <div class="col-md-7">
@@ -66,23 +77,24 @@ if (isset($_POST['add_cat'])) {
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
-                        <th class="text-center" style="width: 50px;">#</th>
                         <th>Categories</th>
-                        <th class="text-center" style="width: 100px;">Actions</th>
+                        <th class="text-center" >Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($all_categories as $cat): ?>
+                    <?php foreach ($all_categories as $currCategory): ?>
                         <tr>
-                            <td class="text-center"><?php echo count_id(); ?></td>
-                            <td><?php echo make_HTML_compliant(ucfirst($cat['name'])); ?></td>
+                            <td><?php echo make_HTML_compliant(ucfirst($currCategory['name'])); ?></td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="edit_category.php?id=<?php echo (int)$cat['id']; ?>"
+
+                                    <a href="edit_category.php?id=<?php echo (int)$currCategory['id']; ?>"
                                        class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit">
+
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
-                                    <a href="delete_category.php?id=<?php echo (int)$cat['id']; ?>"
+
+                                    <a href="delete_category.php?id=<?php echo (int)$currCategory['id']; ?>"
                                        class="btn btn-xs btn-danger" data-toggle="tooltip" title="Remove">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>

@@ -5,35 +5,38 @@ validate_access_level(2);
 
 $sale = find_record_by_id('sales', (int)$_GET['id']);
 if (!$sale) {
-    $session->msg("d", "Missing product id.");
+    $session->msg("danger", "Missing product id.");
     redirect_to_page('sales.php');
 }
+
 $product = find_record_by_id('products', $sale['product_id']);
 
 if (isset($_POST['update_sale'])) {
+
     $req_fields = array('title', 'quantity', 'price', 'total', 'date');
     validate_fields($req_fields);
+
     if (empty($errors)) {
-        $p_id = $db->escape((int)$product['id']);
-        $s_qty = $db->escape((int)$_POST['quantity']);
-        $s_total = $db->escape($_POST['total']);
-        $date = $db->escape($_POST['date']);
+        $p_id = $db->get_escape_string((int)$product['id']);
+        $s_qty = $db->get_escape_string((int)$_POST['quantity']);
+        $s_total = $db->get_escape_string($_POST['total']);
+        $date = $db->get_escape_string($_POST['date']);
         $s_date = date("Y-m-d", strtotime($date));
 
-        $sql = "UPDATE sales SET";
-        $sql .= " product_id= '{$p_id}',qty={$s_qty},price='{$s_total}',date='{$s_date}'";
-        $sql .= " WHERE id ='{$sale['id']}'";
-        $result = $db->query($sql);
+        $sql = "UPDATE sales SET product_id= '{$p_id}',qty={$s_qty},price='{$s_total}',date='{$s_date}' WHERE id ='{$sale['id']}'";
+
+        $result = $db->run_query($sql);
+
         if ($result && $db->affected_rows() === 1) {
             update_product_qty($s_qty, $p_id);
-            $session->msg('s', "Sale updated.");
+            $session->msg("success", "Sale updated.");
             redirect_to_page('edit_sale.php?id=' . $sale['id'], false);
         } else {
-            $session->msg('d', ' Sorry failed to updated!');
+            $session->msg('danger', ' Sorry failed to updated!');
             redirect_to_page('sales.php', false);
         }
     } else {
-        $session->msg("d", $errors);
+        $session->msg("danger", $errors);
         redirect_to_page('edit_sale.php?id=' . (int)$sale['id'], false);
     }
 }

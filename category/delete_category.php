@@ -5,7 +5,7 @@
 <?php
   $category = find_record_by_id('categories',(int)$_GET['id']);
   if(!$category){
-    $session->msg("d","Missing Category id.");
+    $session->msg("danger","Missing Category id.");
     redirect_to_page('category.php');
   }
 ?>
@@ -13,10 +13,10 @@
   $delete_id = delete_by_id('categories',(int)$category['id']);
 
   if($delete_id){
-      $session->msg("s","Category deleted.");
+      $session->msg("success","Category deleted.");
       redirect_to_page('category.php');
   } else {
-      $session->msg("d","Category deletion failed.");
+      $session->msg("success","Category deletion failed.");
       redirect_to_page('category.php');
   }
 ?>

@@ -10,7 +10,7 @@ $single_product = find_record_by_id('products', (int)$_GET['id']);
 $all_categories = get_all_from_table('categories');
 
 if (!$single_product) {
-    $session->msg("d", "Missing product id.");
+    $session->msg("danger", "Missing product id.");
     redirect_to_page('product.php');
 }
 
@@ -22,28 +22,28 @@ if (isset($_POST['product'])) {
     validate_fields($req_fields);
 
     if (empty($errors)) {
-        $p_name = make_HTML_compliant($db->escape($_POST['product-title']));
+        $p_name = make_HTML_compliant($db->get_escape_string($_POST['product-title']));
         $p_cat = (int)$_POST['product-category'];
-        $p_qty = make_HTML_compliant($db->escape($_POST['product-quantity']));
-        $p_buy = make_HTML_compliant($db->escape($_POST['buying-price']));
-        $p_sale = make_HTML_compliant($db->escape($_POST['selling-price']));
+        $p_qty = make_HTML_compliant($db->get_escape_string($_POST['product-quantity']));
+        $p_buy = make_HTML_compliant($db->get_escape_string($_POST['buying-price']));
+        $p_sale = make_HTML_compliant($db->get_escape_string($_POST['selling-price']));
 
         $query = "UPDATE products SET";
         $query .= " name ='{$p_name}', quantity ='{$p_qty}',";
         $query .= " buy_price ='{$p_buy}', sale_price ='{$p_sale}', category_id ='{$p_cat}',";
         $query .= " WHERE id ='{$single_product['id']}'";
-        $result = $db->query($query);
+        $result = $db->run_query($query);
 
         if ($result && $db->affected_rows() === 1) {
-            $session->msg('s', "Product updated ");
+            $session->msg("success", "Product updated ");
             redirect_to_page('product.php', false);
         } else {
-            $session->msg('d', ' Something went wrong - product not updated!');
+            $session->msg("danger", ' Something went wrong - product not updated!');
             redirect_to_page('edit_product.php?id=' . $single_product['id'], false);
         }
 
     } else {
-        $session->msg("d", $errors);
+        $session->msg("danger", $errors);
         redirect_to_page('edit_product.php?id=' . $single_product['id'], false);
     }
 
@@ -51,6 +51,13 @@ if (isset($_POST['product'])) {
 
 ?>
 <?php include_once('../header.php'); ?>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Edit Products!</h1>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <?php echo make_alert_msg($msg); ?>

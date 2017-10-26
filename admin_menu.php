@@ -8,22 +8,22 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="home.php">Inventory System</a>
+        <a class="navbar-brand" href="/~dburkhart1//project2/home.php">Inventory System</a>
     </div>
 
     <div class="collapse navbar-collapse" id="inv-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="nav-item"><a href="/project2/admin.php"> <i class="glyphicon glyphicon-home"></i>
+            <li class="nav-item"><a href="/~dburkhart1/project2/admin.php"> <i class="glyphicon glyphicon-home"></i>
                     Dashboard <span class="sr-only">(current)</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/project2/category/category.php" >
+                <a class="nav-link" href="/~dburkhart1/project2/category/category.php" >
                     <i class="glyphicon glyphicon-indent-left"></i>
                     <span>Categories</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/project2/user/users.php">
+                <a class="nav-link"  href="/~dburkhart1/project2/user/users.php">
                     <i class="glyphicon glyphicon-user"></i>
                     <span>User Management</span>
                 </a>
@@ -35,8 +35,8 @@
                     Products <span class="caret"></span></a>
 
                 <ul class="dropdown-menu">
-        <li> <a class="dropdown-item" href="/project2/product/product.php">Manage products</a></li>
-        <li> <a class="dropdown-item" href="/project2/product/add_product.php">Add product</a></li>
+        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/product.php">Manage products</a></li>
+        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/add_product.php">Add product</a></li>
                 </ul>
             </li>
 
@@ -47,8 +47,8 @@
 
                 <ul class="dropdown-menu">
 
-                    <li><a class="dropdown-item" href="/project2/sale/sales.php">Manage Sales</a></li>
-                    <li> <a class="dropdown-item" href="/project2/sale/add_sale.php">Add Sale</a></li>
+                    <li><a class="dropdown-item" href="/~dburkhart1/project2/sale/sales.php">Manage Sales</a></li>
+                    <li> <a class="dropdown-item" href="/~dburkhart1/project2/sale/add_sale.php">Add Sale</a></li>
                 </ul>
 
             </li>
@@ -59,9 +59,9 @@
                     Sales Report <span class="caret"></span></a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/project2/report/sales_report.php">Sales by dates</a></li>
-                    <li>  <a class="dropdown-item" href="/project2/report/monthly_sales.php">Monthly sales</a></li>
-                    <li>  <a class="dropdown-item" href="/project2/report/daily_sales.php">Daily sales</a></li>
+                    <li><a class="dropdown-item" href="/~dburkhart1/project2/report/sales_report.php">Sales by dates</a></li>
+                    <li>  <a class="dropdown-item" href="/~dburkhart1/project2/report/monthly_sales.php">Monthly sales</a></li>
+                    <li>  <a class="dropdown-item" href="/~dburkhart1/project2/report/daily_sales.php">Daily sales</a></li>
 
                 </ul>
             </li>
@@ -75,7 +75,7 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="/project2/profile.php?id=<?php echo (int)$user['id']; ?>">
+                        <a href="/~dburkhart1/project2/profile.php?id=<?php echo (int)$user['id']; ?>">
                             <i class="glyphicon glyphicon-user"></i>
                             Profile
                         </a>
@@ -84,7 +84,7 @@
 
                     <li role="separator" class="divider"></li>
                     <li>
-                        <a href="/project2/logout.php">
+                        <a href="/~dburkhart1/project2/logout.php">
                             <i class="glyphicon glyphicon-off"></i>
                             Logout
                         </a>

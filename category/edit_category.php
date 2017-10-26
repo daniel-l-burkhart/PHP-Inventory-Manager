@@ -8,7 +8,7 @@ validate_access_level(1);
 
 $category = find_record_by_id('category', (int)$_GET['id']);
 if (!$category) {
-    $session->msg("d", "Missing category id.");
+    $session->msg("danger", "Missing category id.");
     redirect_to_page('category.php');
 }
 ?>
@@ -18,23 +18,23 @@ if (isset($_POST['edit_cat'])) {
 
     $req_field = array('category-name');
     validate_fields($req_field);
-    $cat_name = make_HTML_compliant($db->escape($_POST['category-name']));
+    $cat_name = make_HTML_compliant($db->get_escape_string($_POST['category-name']));
 
     if (empty($errors)) {
         $sql = "UPDATE categories SET name='{$cat_name}'";
         $sql .= " WHERE id='{$category['id']}'";
-        $result = $db->query($sql);
+        $result = $db->run_query($sql);
 
         if ($result && $db->affected_rows() === 1) {
-            $session->msg("s", "Successfully updated Category");
+            $session->msg("success", "Successfully updated Category");
             redirect_to_page('category.php', false);
         } else {
-            $session->msg("d", "Sorry! Failed to Update");
+            $session->msg("danger", "Sorry! Failed to Update");
             redirect_to_page('category.php', false);
         }
 
     } else {
-        $session->msg("d", $errors);
+        $session->msg("danger", $errors);
         redirect_to_page('category.php', false);
     }
 }
@@ -59,7 +59,7 @@ if (isset($_POST['edit_cat'])) {
                         <input type="text" class="form-control" name="categorie-name"
                                value="<?php echo make_HTML_compliant(ucfirst($category['name'])); ?>">
                     </div>
-                    <button type="submit" name="edit_cat" class="btn btn-primary">Update categorie</button>
+                    <button type="submit" name="edit_cat" class="btn btn-primary">Update category</button>
                 </form>
             </div>
         </div>

@@ -13,7 +13,7 @@
 
         <div class="collapse navbar-collapse" id="inv-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a href="/project2/index.php">                    <i class="glyphicon glyphicon-home"></i>
+                <li class="nav-item"><a href="/~dburkhart1/project2/index.php">                    <i class="glyphicon glyphicon-home"></i>
                         Home <span class="sr-only">(current)</span></a></li>
 
                 <li class="dropdown">
@@ -22,7 +22,7 @@
                         Products <span class="caret"></span></a>
 
                     <ul class="dropdown-menu">
-                        <li> <a class="dropdown-item" href="/project2/product/product.php">View products</a></li>
+                        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/product.php">View products</a></li>
                     </ul>
                 </li>
 

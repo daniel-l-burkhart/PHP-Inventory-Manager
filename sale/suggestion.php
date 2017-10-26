@@ -37,7 +37,7 @@ if (isset($_POST['product_name']) && strlen($_POST['product_name'])) {
 
 if (isset($_POST['p_name']) && strlen($_POST['p_name'])) {
 
-    $product_title = make_HTML_compliant($db->escape($_POST['p_name']));
+    $product_title = make_HTML_compliant($db->get_escape_string($_POST['p_name']));
 
     if ($results = find_all_product_info_by_title($product_title)) {
         foreach ($results as $result) {

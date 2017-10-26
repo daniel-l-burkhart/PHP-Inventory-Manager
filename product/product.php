@@ -6,6 +6,12 @@ $products = get_all_products();
 ?>
 <?php include_once('../header.php'); ?>
 
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>View Products!</h1>
+    </div>
+</div>
+
     <div class="row">
         <div class="col-md-12">
             <?php echo make_alert_msg($msg); ?>
@@ -14,7 +20,7 @@ $products = get_all_products();
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
 
-                    <?php if (get_user_level() === 2 || get_current_user() === 1): ?>
+                    <?php if (get_user_level() === '1' OR get_current_user() === '2'): ?>
                         <div class="pull-right">
                             <a href="add_product.php" class="btn btn-primary">Add New</a>
                         </div>
@@ -25,18 +31,16 @@ $products = get_all_products();
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th class="text-center">#</th>
-
                             <th> Product Title</th>
                             <th class="text-center"> Category</th>
                             <th class="text-center" > In stock</th>
 
-                            <?php if (get_user_level() === '1' || get_current_user() === '2'): ?>
+                            <?php if (get_user_level() === '1' OR get_current_user() === '2'): ?>
                                 <th class="text-center"> Buying Price</th>
                             <?php endif; ?>
                             <th class="text-center"> Selling Price</th>
 
-                            <?php if (get_user_level() === '1' || get_current_user() == '2'): ?>
+                            <?php if (get_user_level() === '1' OR get_current_user() == '2'): ?>
 
                                 <th class="text-center" > Product Added</th>
                                 <th class="text-center"> Actions</th>
@@ -46,10 +50,6 @@ $products = get_all_products();
                         <tbody>
                         <?php foreach ($products as $product): ?>
                             <tr>
-                                <td class="text-center">
-                                    <?php echo count_id(); ?>
-                                </td>
-
                                 <td>
                                     <?php echo make_HTML_compliant($product['name']); ?>
                                 </td>

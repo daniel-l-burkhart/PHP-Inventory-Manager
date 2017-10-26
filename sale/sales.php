@@ -11,6 +11,12 @@ $all_sales = find_all_sales();
 
 <?php include_once('../header.php'); ?>
 
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Sales!</h1>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-6">
         <?php echo make_alert_msg($msg); ?>
@@ -33,7 +39,6 @@ $all_sales = find_all_sales();
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th class="text-center">#</th>
                         <th> Product name</th>
                         <th class="text-center"> Quantity</th>
                         <th class="text-center"> Total</th>
@@ -44,8 +49,7 @@ $all_sales = find_all_sales();
                     <tbody>
                     <?php foreach ($all_sales as $sale): ?>
                         <tr>
-                            <td class="text-center">
-                                <?php echo count_id(); ?></td>
+
                             <td>
                                 <?php echo make_HTML_compliant($sale['name']); ?>
                             </td>

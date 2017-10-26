@@ -8,36 +8,32 @@ $all_categories = get_all_from_table('categories');
 ?>
 <?php
 if (isset($_POST['add_product'])) {
-    $req_fields = array('product-title', 'product-category', 'product-quantity', 'buying-price', 'selling-price');
 
+    $req_fields = array('product-title', 'product-category', 'product-quantity', 'buying-price', 'selling-price');
     validate_fields($req_fields);
 
     if (empty($errors)) {
-        $p_name = make_HTML_compliant($db->escape($_POST['product-title']));
-        $p_cat = make_HTML_compliant($db->escape($_POST['product-category']));
-        $p_qty = make_HTML_compliant($db->escape($_POST['product-quantity']));
-        $p_buy = make_HTML_compliant($db->escape($_POST['buying-price']));
-        $p_sale = make_HTML_compliant($db->escape($_POST['selling-price']));
+
+        $p_name = make_HTML_compliant($db->get_escape_string($_POST['product-title']));
+        $p_cat = make_HTML_compliant($db->get_escape_string($_POST['product-category']));
+        $p_qty = make_HTML_compliant($db->get_escape_string($_POST['product-quantity']));
+        $p_buy = make_HTML_compliant($db->get_escape_string($_POST['buying-price']));
+        $p_sale = make_HTML_compliant($db->get_escape_string($_POST['selling-price']));
 
         $date = make_date();
 
-        $query = "INSERT INTO products (";
-        $query .= "name, quantity, buy_price, sale_price, category_id, date";
-        $query .= ") VALUES (";
-        $query .= " '{$p_name}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_cat}', '{$date}'";
-        $query .= ")";
-        $query .= " ON DUPLICATE KEY UPDATE name='{$p_name}'";
+        $query = "INSERT INTO products (name, quantity, buy_price, sale_price, category_id, date) VALUES ('{$p_name}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_cat}', '{$date}') ON DUPLICATE KEY UPDATE name='{$p_name}'";
 
-        if ($db->query($query)) {
-            $session->msg('s', "Product added ");
+        if ($db->run_query($query)) {
+            $session->msg('success', "Product added ");
             redirect_to_page('add_product.php', false);
         } else {
-            $session->msg('d', ' Sorry failed to added!');
+            $session->msg('danger', ' Sorry failed to added!');
             redirect_to_page('product.php', false);
         }
 
     } else {
-        $session->msg("d", $errors);
+        $session->msg("danger", $errors);
         redirect_to_page('add_product.php', false);
     }
 
@@ -45,13 +41,22 @@ if (isset($_POST['add_product'])) {
 
 ?>
 <?php include_once('../header.php'); ?>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Add New Product!</h1>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <?php echo make_alert_msg($msg); ?>
     </div>
 </div>
+
+<div class="container">
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <strong>
@@ -60,6 +65,7 @@ if (isset($_POST['add_product'])) {
                 </strong>
             </div>
             <div class="panel-body">
+
                 <div class="col-md-10">
                     <form method="post" action="add_product.php" class="clearfix">
                         <div class="form-group">
@@ -73,7 +79,7 @@ if (isset($_POST['add_product'])) {
                         </div>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <select class="form-control" name="product-category">
                                         <option value="">Select Product Category</option>
                                         <?php foreach ($all_categories as $cat): ?>
@@ -124,6 +130,7 @@ if (isset($_POST['add_product'])) {
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <?php include_once('../footer.php'); ?>

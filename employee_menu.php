@@ -13,11 +13,11 @@
 
         <div class="collapse navbar-collapse" id="inv-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a href="/project2/home.php">                    <i class="glyphicon glyphicon-home"></i>
+                <li class="nav-item"><a href="/~dburkhart1/project2/home.php">                    <i class="glyphicon glyphicon-home"></i>
                         Home <span class="sr-only">(current)</span></a></li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/project2/category/category.php" >
+                    <a class="nav-link" href="/~dburkhart1/project2/category/category.php" >
                         <i class="glyphicon glyphicon-indent-left"></i>
                         <span>Categories</span>
                     </a>
@@ -29,7 +29,7 @@
                         Products <span class="caret"></span></a>
 
                     <ul class="dropdown-menu">
-                        <li> <a class="dropdown-item" href="/project2/product/product.php">Manage products</a></li>
+                        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/product.php">Manage products</a></li>
                     </ul>
                 </li>
 
@@ -40,7 +40,7 @@
 
                     <ul class="dropdown-menu">
 
-                        <li> <a class="dropdown-item" href="/project2/product/add_sale.php">Add Sale</a></li>
+                        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/add_sale.php">Add Sale</a></li>
                     </ul>
                 </li>
 
@@ -52,7 +52,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="/project2/profile.php?id=<?php echo (int)$user['id']; ?>">
+                            <a href="/~dburkhart1/project2/profile.php?id=<?php echo (int)$user['id']; ?>">
                                 <i class="glyphicon glyphicon-user"></i>
                                 Profile
                             </a>
@@ -61,7 +61,7 @@
 
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="/project2/logout.php">
+                            <a href="/~dburkhart1/project2/logout.php">
                                 <i class="glyphicon glyphicon-off"></i>
                                 Logout
                             </a>

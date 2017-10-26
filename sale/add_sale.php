@@ -14,27 +14,27 @@ if (isset($_POST['add_sale'])) {
 
     if (empty($errors)) {
 
-        $p_id = $db->escape((int)$_POST['s_id']);
-        $s_qty = $db->escape((int)$_POST['quantity']);
-        $s_total = $db->escape($_POST['total']);
-        $date = $db->escape($_POST['date']);
+        $p_id = $db->get_escape_string((int)$_POST['s_id']);
+        $s_qty = $db->get_escape_string((int)$_POST['quantity']);
+        $s_total = $db->get_escape_string($_POST['total']);
+        $date = $db->get_escape_string($_POST['date']);
         $s_date = make_date();
 
         $sql = "INSERT INTO sales (product_id,qty,price,date) VALUES ('{$p_id}','{$s_qty}','{$s_total}','{$s_date}');";
 
-        if ($db->query($sql)) {
+        if ($db->run_query($sql)) {
 
             update_product_qty($s_qty, $p_id);
-            $session->msg('s', "Sale added. ");
+            $session->msg("success", "Sale added. ");
             redirect_to_page('add_sale.php', false);
 
         } else {
-            $session->msg('d', ' Sorry failed to add sale!');
+            $session->msg("danger", ' Sorry failed to add sale!');
             redirect_to_page('add_sale.php', false);
         }
 
     } else {
-        $session->msg("d", $errors);
+        $session->msg("danger", $errors);
         redirect_to_page('add_sale.php', false);
     }
 }
@@ -42,8 +42,14 @@ if (isset($_POST['add_sale'])) {
 ?>
 <?php include_once('../header.php'); ?>
 
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Add Sale!</h1>
+    </div>
+</div>
+
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <?php echo make_alert_msg($msg); ?>
         <form method="post" action="suggestion.php" autocomplete="off" id="sug-form">
             <div class="form-group">
@@ -66,7 +72,7 @@ if (isset($_POST['add_sale'])) {
             <div class="panel-heading clearfix">
                 <strong>
                     <span class="glyphicon glyphicon-th"></span>
-                    <span>Sale Eidt</span>
+                    <span>Add Sale</span>
                 </strong>
             </div>
             <div class="panel-body">

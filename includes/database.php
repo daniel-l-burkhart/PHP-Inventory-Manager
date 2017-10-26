@@ -4,7 +4,7 @@ require_once(LIB_PATH_INC . DS . "config.php");
 class MySqli_DB
 {
 
-    private $con;
+    private $connection;
     public $query_id;
 
     function __construct()
@@ -14,11 +14,11 @@ class MySqli_DB
 
     public function db_connect()
     {
-        $this->con = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
-        if (!$this->con) {
+        $this->connection = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
+        if (!$this->connection) {
             die(" Database connection failed:" . mysqli_connect_error());
         } else {
-            $select_db = $this->con->select_db(DB_NAME);
+            $select_db = $this->connection->select_db(DB_NAME);
             if (!$select_db) {
                 die("Failed to Select Database" . mysqli_connect_error());
             }
@@ -27,20 +27,21 @@ class MySqli_DB
 
     public function db_disconnect()
     {
-        if (isset($this->con)) {
-            mysqli_close($this->con);
-            unset($this->con);
+        if (isset($this->connection)) {
+            mysqli_close($this->connection);
+            unset($this->connection);
         }
     }
 
-    public function query($sql)
+    public function run_query($sql)
     {
-
         if (trim($sql != "")) {
-            $this->query_id = $this->con->query($sql);
+            $this->query_id = $this->connection->query($sql);
         }
-        if (!$this->query_id)
-            die("Error on this Query :<pre> " . $sql . "</pre>");
+
+        if (!$this->query_id) {
+            die("Error on this query :<pre> " . $sql . "</pre>");
+        }
 
         return $this->query_id;
     }
@@ -55,7 +56,7 @@ class MySqli_DB
         return mysqli_fetch_object($statement);
     }
 
-    public function fetch_assoc($statement)
+    public function fetch_associative_array($statement)
     {
         return mysqli_fetch_assoc($statement);
     }
@@ -67,17 +68,17 @@ class MySqli_DB
 
     public function insert_id()
     {
-        return mysqli_insert_id($this->con);
+        return mysqli_insert_id($this->connection);
     }
 
     public function affected_rows()
     {
-        return mysqli_affected_rows($this->con);
+        return mysqli_affected_rows($this->connection);
     }
 
-    public function escape($str)
+    public function get_escape_string($str)
     {
-        return $this->con->real_escape_string($str);
+        return $this->connection->real_escape_string($str);
     }
 
     public function while_loop($loop)

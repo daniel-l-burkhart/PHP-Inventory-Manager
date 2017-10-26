@@ -13,7 +13,7 @@ function get_all_from_table($table)
 {
     global $db;
     if (tableExists($table)) {
-        return find_by_sql("SELECT * FROM " . $db->escape($table));
+        return find_by_sql("SELECT * FROM " . $db->get_escape_string($table));
     }
 }
 
@@ -27,7 +27,7 @@ function get_all_from_table($table)
 function find_by_sql($sql)
 {
     global $db;
-    $result = $db->query($sql);
+    $result = $db->run_query($sql);
     $result_set = $db->while_loop($result);
     return $result_set;
 }
@@ -47,8 +47,8 @@ function find_record_by_id($table, $id)
     global $db;
     $id = (int)$id;
     if (tableExists($table)) {
-        $sql = $db->query("SELECT * FROM {$db->escape($table)} WHERE id='{$db->escape($id)}' LIMIT 1");
-        if ($result = $db->fetch_assoc($sql)) {
+        $sql = $db->run_query("SELECT * FROM {$db->get_escape_string($table)} WHERE id='{$db->get_escape_string($id)}' LIMIT 1");
+        if ($result = $db->fetch_associative_array($sql)) {
             return $result;
         } else {
             return null;
@@ -70,10 +70,10 @@ function delete_by_id($table, $id)
 {
     global $db;
     if (tableExists($table)) {
-        $sql = "DELETE FROM " . $db->escape($table);
-        $sql .= " WHERE id=" . $db->escape($id);
+        $sql = "DELETE FROM " . $db->get_escape_string($table);
+        $sql .= " WHERE id=" . $db->get_escape_string($id);
         $sql .= " LIMIT 1";
-        $db->query($sql);
+        $db->run_query($sql);
         return ($db->affected_rows() === 1) ? true : false;
     }
 }
@@ -89,7 +89,7 @@ function delete_by_id($table, $id)
 function tableExists($table)
 {
     global $db;
-    $table_exit = $db->query('SHOW TABLES FROM ' . DB_NAME . ' LIKE "' . $db->escape($table) . '"');
+    $table_exit = $db->run_query('SHOW TABLES FROM ' . DB_NAME . ' LIKE "' . $db->get_escape_string($table) . '"');
     if ($table_exit) {
         if ($db->num_rows($table_exit) > 0) {
             return true;
@@ -112,13 +112,13 @@ function tableExists($table)
 function authenticate_user($username = '', $password = '')
 {
     global $db;
-    $username = $db->escape($username);
-    $password = $db->escape($password);
+    $username = $db->get_escape_string($username);
+    $password = $db->get_escape_string($password);
     $sql = sprintf("SELECT id,username,password,user_level, status FROM users WHERE username ='%s' LIMIT 1", $username);
-    $result = $db->query($sql);
+    $result = $db->run_query($sql);
     if ($db->num_rows($result)) {
 
-        $user = $db->fetch_assoc($result);
+        $user = $db->fetch_associative_array($result);
 
         if($user['status'] === '1') {
 
@@ -141,7 +141,6 @@ function authenticate_user($username = '', $password = '')
 function current_user()
 {
     static $current_user;
-    // global $db;
 
     if (!$current_user) {
         if (isset($_SESSION['user_id'])) {
@@ -172,6 +171,23 @@ function find_unapproved_users(){
 
 }
 
+function unapproved_users_count(){
+
+    global $db;
+
+    $sql = "SELECT * FROM users u, user_groups g WHERE g.group_level=u.user_level AND u.status = '0' ORDER BY u.name ASC";
+
+    $row_cnt = 0;
+
+    if ($result = $db->run_query($sql)) {
+
+        $row_cnt = $db->num_rows($result);
+    }
+
+    return $row_cnt;
+
+}
+
 /**
  * Updates user table with latest timestamp of successful login.
  *
@@ -185,7 +201,7 @@ function updateLastLogIn($user_id)
     global $db;
     $date = make_date();
     $sql = "UPDATE users SET last_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
-    $result = $db->query($sql);
+    $result = $db->run_query($sql);
 
     if ($result && $db->affected_rows() === 1) {
         return true;
@@ -205,8 +221,8 @@ function updateLastLogIn($user_id)
 function find_by_groupLevel($level)
 {
     global $db;
-    $sql = "SELECT group_level FROM user_groups WHERE group_level = '{$db->escape($level)}' LIMIT 1 ";
-    $result = $db->query($sql);
+    $sql = "SELECT group_level FROM user_groups WHERE group_level = '{$db->get_escape_string($level)}' LIMIT 1 ";
+    $result = $db->run_query($sql);
 
     if ($db->num_rows($result) === 0) {
         return true;
@@ -231,12 +247,12 @@ function validate_access_level($require_level)
     $login_level = find_by_groupLevel($current_user['user_level']);
 
     if (!$session->isUserLoggedIn()) {
-        $session->msg('d', 'Please login...');
+        $session->msg('danger', 'Please login...');
         redirect_to_page('index.php', false);
     }
 
     if ($login_level['group_status'] === '0') {
-        $session->msg('d', 'This level user has been removed!');
+        $session->msg('danger', 'This level user has been removed!');
         redirect_to_page('home.php', false);
     }
 
@@ -244,7 +260,7 @@ function validate_access_level($require_level)
         return true;
 
     } else {
-        $session->msg("d", "Sorry! you dont have permission to view the page.");
+        $session->msg("danger", "Sorry! you dont have permission to view the page.");
         redirect_to_page('home.php', false);
     }
 
@@ -288,7 +304,7 @@ function get_all_products()
 function find_product_by_title($product_name)
 {
     global $db;
-    $p_name = make_HTML_compliant($db->escape($product_name));
+    $p_name = make_HTML_compliant($db->get_escape_string($product_name));
     $sql = "SELECT name FROM products WHERE name like '%$p_name%' LIMIT 5";
     $result = find_by_sql($sql);
     return $result;
@@ -308,7 +324,7 @@ function update_product_qty($qty, $p_id)
     $qty = (int)$qty;
     $id = (int)$p_id;
     $sql = "UPDATE products SET quantity=quantity -'{$qty}' WHERE id = '{$id}'";
-    $result = $db->query($sql);
+    $result = $db->run_query($sql);
 
     if ($db->affected_rows() === 1) {
         return true;
@@ -324,7 +340,7 @@ function find_recent_product_added($limit)
     $sql = " SELECT p.id,p.name,p.sale_price,c.name AS category";
     $sql .= " FROM products p, categories c";
     $sql .= " WHERE c.id = p.category_id";
-    $sql .= " ORDER BY p.id DESC LIMIT " . $db->escape((int)$limit);
+    $sql .= " ORDER BY p.id DESC LIMIT " . $db->get_escape_string((int)$limit);
     return find_by_sql($sql);
 }
 
@@ -335,8 +351,8 @@ function find_highest_selling_product($limit)
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE p.id = s.product_id ";
     $sql .= " GROUP BY s.product_id";
-    $sql .= " ORDER BY SUM(s.qty) DESC LIMIT " . $db->escape((int)$limit);
-    return $db->query($sql);
+    $sql .= " ORDER BY SUM(s.qty) DESC LIMIT " . $db->get_escape_string((int)$limit);
+    return $db->run_query($sql);
 }
 
 function find_all_sales()
@@ -355,7 +371,7 @@ function find_recent_sale_added($limit)
     $sql = "SELECT s.id,s.qty,s.price,s.date,p.name";
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE s.product_id = p.id";
-    $sql .= " ORDER BY s.date DESC LIMIT " . $db->escape((int)$limit);
+    $sql .= " ORDER BY s.date DESC LIMIT " . $db->get_escape_string((int)$limit);
     return find_by_sql($sql);
 }
 
@@ -377,7 +393,7 @@ function find_sale_by_dates($start_date, $end_date)
     $sql .= " AND WHERE s.date BETWEEN '{$start_date}' AND '{$end_date}'";
     $sql .= " GROUP BY DATE(s.date),p.name";
     $sql .= " ORDER BY DATE(s.date) DESC";
-    return $db->query($sql);
+    return $db->run_query($sql);
 }
 
 function dailySales($year, $month)

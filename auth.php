@@ -17,17 +17,17 @@ if (empty($errors)) {
 
             if ($user['user_level'] === '1') {
 
-                $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
+                $session->msg("success", "Hello " . $user['username'] . ", Welcome to the Inventory.");
                 redirect_to_page('admin.php', false);
 
             } elseif ($user['user_level'] === '2') {
 
-                $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
+                $session->msg("success", "Hello " . $user['username'] . ", Welcome to the Inventory.");
                 redirect_to_page('special.php', false);
 
             } else {
 
-                $session->msg("s", "Hello " . $user['username'] . ", Welcome to the Inventory.");
+                $session->msg("success", "Hello " . $user['username'] . ", Welcome to the Inventory.");
                 redirect_to_page('home.php', false);
 
             }
@@ -35,13 +35,13 @@ if (empty($errors)) {
 
     } else {
 
-        $session->msg("d", "Sorry Username/Password incorrect.");
+        $session->msg("danger", "Sorry Username/Password incorrect.");
         redirect_to_page('index.php', false);
     }
 
 } else {
 
-    $session->msg("d", $errors);
+    $session->msg("danger", $errors);
     redirect_to_page('login.php', false);
 }
 
