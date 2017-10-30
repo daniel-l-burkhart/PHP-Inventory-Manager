@@ -24,10 +24,7 @@ if (isset($_POST['product_name']) && strlen($_POST['product_name'])) {
 
     } else {
 
-        $html .= '<li onClick=\"fill(\'' . addslashes() . '\')\" class=\"list-group-item\">';
-        $html .= 'Not found';
-        $html .= "</li>";
-
+        $html .= "<li class=\"list-group-item\">Product Not Found </li>";
     }
 
     echo json_encode($html);

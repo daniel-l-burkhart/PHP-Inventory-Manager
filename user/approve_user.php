@@ -101,6 +101,7 @@ if(empty($errors)){
                                 <form method="post" action="approve_user.php">
                                     <label for="approve">Approve</label>
                                     <input id="approve" type="radio" name="radio" value="approve">
+                                    <br/>
 
                                     <label for="reject">Reject</label>
                                     <input id="reject" type="radio" name="radio" value="reject">
@@ -108,7 +109,7 @@ if(empty($errors)){
                                     <input name="uID" type="hidden" value="<?php echo make_HTML_compliant($a_user['id'])?>">
 
                                     <br/>
-                                    <input type="submit" class="btn btn-primary">
+                                    <input type="submit" class="btn btn-success">
 
                                 </form>
 

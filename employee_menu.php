@@ -8,13 +8,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Inventory System</a>
+            <a class="navbar-brand" href="home.php">Inventory System</a>
         </div>
 
         <div class="collapse navbar-collapse" id="inv-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a href="/~dburkhart1/project2/home.php">                    <i class="glyphicon glyphicon-home"></i>
-                        Home <span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a href="/~dburkhart1/project2/employee.php">
+                        <i class="glyphicon glyphicon-home"></i>
+                        Dashboard <span class="sr-only">(current)</span></a></li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="/~dburkhart1/project2/category/category.php" >
@@ -29,7 +30,7 @@
                         Products <span class="caret"></span></a>
 
                     <ul class="dropdown-menu">
-                        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/product.php">Manage products</a></li>
+                        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/product.php">View products</a></li>
                     </ul>
                 </li>
 
@@ -40,7 +41,7 @@
 
                     <ul class="dropdown-menu">
 
-                        <li> <a class="dropdown-item" href="/~dburkhart1/project2/product/add_sale.php">Add Sale</a></li>
+                        <li> <a class="dropdown-item" href="/~dburkhart1/project2/sale/add_sale.php">Add Sale</a></li>
                     </ul>
                 </li>
 
@@ -49,7 +50,9 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <?php echo $user['name'] ?>
+                        <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="/~dburkhart1/project2/profile.php?id=<?php echo (int)$user['id']; ?>">

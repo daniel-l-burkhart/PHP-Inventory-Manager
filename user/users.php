@@ -31,7 +31,9 @@ $unapproved_users = unapproved_users_count();
     <div class="col-md-12">
         <div class="panel panel-default">
         <div class="panel-heading clearfix">
+            <strong>
             <span>Unapproved Users</span>
+        </strong
         </div>
         <div class="panel-body">
             <h3> There are unapproved users that need to be reviewed</h3>
@@ -76,12 +78,12 @@ $unapproved_users = unapproved_users_count();
                             <td class="text-center">
                                 <div class="btn-group">
                                     <a href="edit_user.php?id=<?php echo (int)$a_user['id']; ?>"
-                                       class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit">
-                                        <i class="glyphicon glyphicon-pencil"></i>
+                                       class="btn btn-sm btn-warning" data-toggle="tooltip" title="Edit">
+                                        <i class="glyphicon glyphicon-edit"></i>
                                     </a>
                                     <a href="delete_user.php?id=<?php echo (int)$a_user['id']; ?>"
-                                       class="btn btn-xs btn-danger" data-toggle="tooltip" title="Remove">
-                                        <i class="glyphicon glyphicon-remove"></i>
+                                       class="btn btn-sm btn-danger" data-toggle="tooltip" title="Remove">
+                                        <i class="glyphicon glyphicon-trash"></i>
                                     </a>
                                 </div>
                             </td>

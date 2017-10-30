@@ -36,7 +36,7 @@ $products = get_all_products();
                             <th class="text-center" > In stock</th>
 
                             <?php if (get_user_level() === '1' OR get_current_user() === '2'): ?>
-                                <th class="text-center"> Buying Price</th>
+                                <th class="text-center"> Vendor Cost Price</th>
                             <?php endif; ?>
                             <th class="text-center"> Selling Price</th>
 
@@ -63,7 +63,7 @@ $products = get_all_products();
 
                                 <?php if (get_user_level() == '1' || get_current_user() === '2'): ?>
                                     <td class="text-center">
-                                        <?php echo make_HTML_compliant($product['buy_price']); ?>
+                                        <?php echo make_HTML_compliant($product['cost_price']); ?>
                                     </td>
                                 <?php endif; ?>
 
@@ -80,11 +80,11 @@ $products = get_all_products();
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <a href="edit_product.php?id=<?php echo (int)$product['id']; ?>"
-                                               class="btn btn-info btn-xs" title="Edit" data-toggle="tooltip">
+                                               class="btn btn-warning btn-sm" title="Edit" data-toggle="tooltip">
                                                 <span class="glyphicon glyphicon-edit"></span>
                                             </a>
                                             <a href="delete_product.php?id=<?php echo (int)$product['id']; ?>"
-                                               class="btn btn-danger btn-xs" title="Delete" data-toggle="tooltip">
+                                               class="btn btn-danger btn-sm" title="Delete" data-toggle="tooltip">
                                                 <span class="glyphicon glyphicon-trash"></span>
                                             </a>
                                         </div>

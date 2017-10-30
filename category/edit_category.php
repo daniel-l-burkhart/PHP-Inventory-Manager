@@ -6,7 +6,9 @@ validate_access_level(1);
 ?>
 <?php
 
-$category = find_record_by_id('category', (int)$_GET['id']);
+$category = find_record_by_id('categories', (int)$_GET['id']);
+
+
 if (!$category) {
     $session->msg("danger", "Missing category id.");
     redirect_to_page('category.php');
@@ -41,11 +43,17 @@ if (isset($_POST['edit_cat'])) {
 ?>
 <?php include_once('../header.php'); ?>
 
+<div class="container">
+
+    <div class="jumbotron text-center row">
+        <h1>Edit Category</h1>
+    </div>
+
 <div class="row">
     <div class="col-md-12">
         <?php echo make_alert_msg($msg); ?>
     </div>
-    <div class="col-md-5">
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <strong>
@@ -56,15 +64,15 @@ if (isset($_POST['edit_cat'])) {
             <div class="panel-body">
                 <form method="post" action="edit_category.php?id=<?php echo (int)$category['id']; ?>">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="categorie-name"
+                        <input type="text" class="form-control" name="category-name"
                                value="<?php echo make_HTML_compliant(ucfirst($category['name'])); ?>">
                     </div>
                     <button type="submit" name="edit_cat" class="btn btn-primary">Update category</button>
                 </form>
             </div>
         </div>
-    </div>
 </div>
 
+</div>
 
 <?php include_once('../footer.php'); ?>

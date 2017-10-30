@@ -23,12 +23,12 @@ if (empty($errors)) {
             } elseif ($user['user_level'] === '2') {
 
                 $session->msg("success", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-                redirect_to_page('special.php', false);
+                redirect_to_page('manager.php', false);
 
             } else {
 
                 $session->msg("success", "Hello " . $user['username'] . ", Welcome to the Inventory.");
-                redirect_to_page('home.php', false);
+                redirect_to_page('employee.php', false);
 
             }
 

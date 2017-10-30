@@ -120,7 +120,7 @@ function authenticate_user($username = '', $password = '')
 
         $user = $db->fetch_associative_array($result);
 
-        if($user['status'] === '1') {
+        if ($user['status'] === '1') {
 
             $password_request = sha1($password);
 
@@ -164,14 +164,16 @@ function find_all_user()
     return $result;
 }
 
-function find_unapproved_users(){
+function find_unapproved_users()
+{
     $sql = "SELECT u.id,u.name,u.username,u.user_level,u.status,u.last_login, g.group_name FROM users u, user_groups g WHERE g.group_level=u.user_level AND u.status = '0' ORDER BY u.name ASC";
     $result = find_by_sql($sql);
     return $result;
 
 }
 
-function unapproved_users_count(){
+function unapproved_users_count()
+{
 
     global $db;
 
@@ -199,8 +201,8 @@ function unapproved_users_count(){
 function updateLastLogIn($user_id)
 {
     global $db;
-    $date = make_date();
-    $sql = "UPDATE users SET last_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
+
+    $sql = "UPDATE users SET last_login=NOW() WHERE id ='{$user_id}' LIMIT 1";
     $result = $db->run_query($sql);
 
     if ($result && $db->affected_rows() === 1) {
@@ -248,12 +250,12 @@ function validate_access_level($require_level)
 
     if (!$session->isUserLoggedIn()) {
         $session->msg('danger', 'Please login...');
-        redirect_to_page('index.php', false);
+        redirect_to_page('/~dburkhart1/project2/index.php', false);
     }
 
     if ($login_level['group_status'] === '0') {
         $session->msg('danger', 'This level user has been removed!');
-        redirect_to_page('home.php', false);
+        redirect_to_page('/~dburkhart1/project2/home.php', false);
     }
 
     if ($current_user['user_level'] <= (int)$require_level) {
@@ -261,7 +263,7 @@ function validate_access_level($require_level)
 
     } else {
         $session->msg("danger", "Sorry! you dont have permission to view the page.");
-        redirect_to_page('home.php', false);
+        redirect_to_page('/~dburkhart1/project2/home.php', false);
     }
 
 }
@@ -285,7 +287,7 @@ function get_user_level()
  */
 function get_all_products()
 {
-    $sql = " SELECT p.id,p.name,p.quantity,p.buy_price,p.sale_price,p.date,c.name";
+    $sql = " SELECT p.id,p.name,p.quantity,p.cost_price,p.sale_price,p.date,c.name";
     $sql .= " AS category";
     $sql .= " FROM products p, categories c";
     $sql .= " WHERE c.id = p.category_id";
@@ -323,7 +325,7 @@ function update_product_qty($qty, $p_id)
     global $db;
     $qty = (int)$qty;
     $id = (int)$p_id;
-    $sql = "UPDATE products SET quantity=quantity -'{$qty}' WHERE id = '{$id}'";
+    $sql = "UPDATE products SET quantity=quantity -q{$qty}ty WHERE id = '{$id}'";
     $result = $db->run_query($sql);
 
     if ($db->affected_rows() === 1) {
@@ -347,17 +349,17 @@ function find_recent_product_added($limit)
 function find_highest_selling_product($limit)
 {
     global $db;
-    $sql = "SELECT p.name, COUNT(s.product_id) AS totalSold, SUM(s.qty) AS totalQty";
+    $sql = "SELECT p.name, COUNT(s.product_id) AS totalSold, SUM(s.quantity) AS totalQty";
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE p.id = s.product_id ";
     $sql .= " GROUP BY s.product_id";
-    $sql .= " ORDER BY SUM(s.qty) DESC LIMIT " . $db->get_escape_string((int)$limit);
+    $sql .= " ORDER BY SUM(s.quantity) DESC LIMIT " . $db->get_escape_string((int)$limit);
     return $db->run_query($sql);
 }
 
 function find_all_sales()
 {
-    $sql = "SELECT s.id,s.qty,s.price,s.date,p.name";
+    $sql = "SELECT s.id,s.quantity,s.price,s.date,p.name";
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE s.product_id = p.id";
     $sql .= " ORDER BY s.date DESC";
@@ -368,7 +370,7 @@ function find_all_sales()
 function find_recent_sale_added($limit)
 {
     global $db;
-    $sql = "SELECT s.id,s.qty,s.price,s.date,p.name";
+    $sql = "SELECT s.id,s.quantity,s.price,s.date,p.name";
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE s.product_id = p.id";
     $sql .= " ORDER BY s.date DESC LIMIT " . $db->get_escape_string((int)$limit);
@@ -383,39 +385,41 @@ function find_sale_by_dates($start_date, $end_date)
     $start_date = date("Y-m-d", strtotime($start_date));
     $end_date = date("Y-m-d", strtotime($end_date));
 
-    $sql = "SELECT s.date, p.name,p.sale_price,p.buy_price,";
+    $sql = "SELECT s.date, p.name,p.sale_price,p.cost_price,";
     $sql .= "COUNT(s.product_id) AS total_records,";
-    $sql .= "SUM(s.qty) AS total_sales,";
-    $sql .= "SUM(p.sale_price * s.qty) AS total_selling_price,";
-    $sql .= "SUM(p.buy_price * s.qty) AS total_buying_price ";
+    $sql .= "SUM(s.quantity) AS total_sales,";
+    $sql .= "SUM(p.sale_price * s.quantity) AS total_selling_price,";
+    $sql .= "SUM(p.cost_price * s.quantity) AS total_cost_price ";
     $sql .= "FROM sales s, products p ";
     $sql .= " WHERE s.product_id = p.id";
-    $sql .= " AND WHERE s.date BETWEEN '{$start_date}' AND '{$end_date}'";
+    $sql .= " AND s.date BETWEEN '{$start_date}' AND '{$end_date}'";
     $sql .= " GROUP BY DATE(s.date),p.name";
     $sql .= " ORDER BY DATE(s.date) DESC";
+
+    //return find_by_sql($sql);
     return $db->run_query($sql);
 }
 
 function dailySales($year, $month)
 {
-    $sql = "SELECT s.qty,";
+    $sql = "SELECT s.quantity,";
     $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
-    $sql .= "SUM(p.sale_price * s.qty) AS total_selling_price";
+    $sql .= "SUM(p.sale_price * s.quantity) AS total_selling_price";
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE s.product_id = p.id";
-    $sql .= " AND WHERE DATE_FORMAT(s.date, '%Y-%m' ) = '{$year}-{$month}'";
+    $sql .= " AND DATE_FORMAT(s.date, '%Y-%m' ) = '{$year}-{$month}'";
     $sql .= " GROUP BY DATE_FORMAT( s.date,  '%e' ),s.product_id";
     return find_by_sql($sql);
 }
 
 function monthlySales($year)
 {
-    $sql = "SELECT s.qty,";
+    $sql = "SELECT s.quantity,";
     $sql .= " DATE_FORMAT(s.date, '%Y-%m-%e') AS date,p.name,";
-    $sql .= "SUM(p.sale_price * s.qty) AS total_selling_price";
+    $sql .= "SUM(p.sale_price * s.quantity) AS total_selling_price";
     $sql .= " FROM sales s, products p";
     $sql .= " WHERE s.product_id = p.id";
-    $sql .= " AND WHERE DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
+    $sql .= " AND DATE_FORMAT(s.date, '%Y' ) = '{$year}'";
     $sql .= " GROUP BY DATE_FORMAT( s.date,  '%c' ),s.product_id";
     $sql .= " ORDER BY date_format(s.date, '%c' ) ASC";
     return find_by_sql($sql);

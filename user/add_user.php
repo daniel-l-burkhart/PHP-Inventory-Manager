@@ -19,12 +19,26 @@ if (isset($_POST['add_user'])) {
         $user_level = (int)$db->get_escape_string($_POST['level']);
         $password = sha1($password);
 
-        $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','0')";
+        if(get_user_level() === '1'){
+
+            $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','1')";
+
+        } else {
+
+            $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','0')";
+
+        }
 
         if ($db->run_query($query)) {
 
-            $session->msg('success', "User account has been requested! ");
-            redirect_to_page('add_user.php', false);
+            if(get_user_level() === '1') {
+                $session->msg('success', "User account has been created! ");
+                redirect_to_page('add_user.php', false);
+            } else {
+                $session->msg('success', "User account has been requested! ");
+                redirect_to_page('add_user.php', false);
+            }
+
         } else {
             $session->msg('danger', ' Sorry failed to create request!');
             redirect_to_page('add_user.php', false);
@@ -38,14 +52,42 @@ if (isset($_POST['add_user'])) {
 
 <?php include_once('../header.php'); ?>
 
+<?php if (get_user_level() === '1'): ?>
+
+<div class="container">
+    <div class="jumbotron text-center row">
+        <h1>Add New User</h1>
+    </div>
+</div>
+
+<?php else: ?>
+
+    <div class="container">
+        <div class="jumbotron text-center row">
+            <h1>Request User Account</h1>
+        </div>
+    </div>
+<?php endif; ?>
+
+
 <?php echo make_alert_msg($msg); ?>
+
 <div class="container">
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <strong>
-                    <span>Add New User</span>
-                </strong>
+
+                <?php if (get_user_level() === '1'): ?>
+
+                    <strong>
+                        <span>Add New User</span>
+                    </strong>
+                <?php else: ?>
+                    <strong>
+                        <span>Request User Account</span>
+                    </strong>
+                <?php endif; ?>
+
             </div>
             <div class="panel-body">
 
@@ -70,9 +112,22 @@ if (isset($_POST['add_user'])) {
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="form-group clearfix">
-                        <button type="submit" name="add_user" class="btn btn-success">Request User Account</button>
-                    </div>
+
+                    <?php if (get_user_level() === '1'): ?>
+
+                        <div class="form-group clearfix">
+                            <button type="submit" name="add_user" class="btn btn-success">Create User</button>
+                        </div>
+
+                    <?php else: ?>
+
+
+                        <div class="form-group clearfix">
+                            <button type="submit" name="add_user" class="btn btn-success">Request User Account</button>
+                        </div>
+
+                    <?php endif; ?>
+
                 </form>
             </div>
 

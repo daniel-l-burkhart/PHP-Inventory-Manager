@@ -1,7 +1,7 @@
 <?php
   $page_title = 'Monthly Sales';
   require_once('../includes/load.php');
-   validate_access_level(3);
+   validate_access_level(1);
 ?>
 <?php
  $year = date('Y');
@@ -43,7 +43,7 @@
              <?php foreach ($sales as $sale):?>
              <tr>
                <td><?php echo make_HTML_compliant($sale['name']); ?></td>
-               <td class="text-center"><?php echo (int)$sale['qty']; ?></td>
+               <td class="text-center"><?php echo (int)$sale['quantity']; ?></td>
                <td class="text-center"><?php echo make_HTML_compliant($sale['total_selling_price']); ?></td>
                <td class="text-center"><?php echo $sale['date']; ?></td>
              </tr>

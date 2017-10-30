@@ -18,17 +18,17 @@ if (isset($_POST['update_sale'])) {
 
     if (empty($errors)) {
         $p_id = $db->get_escape_string((int)$product['id']);
-        $s_qty = $db->get_escape_string((int)$_POST['quantity']);
+        $s_quantity = $db->get_escape_string((int)$_POST['quantity']);
         $s_total = $db->get_escape_string($_POST['total']);
         $date = $db->get_escape_string($_POST['date']);
         $s_date = date("Y-m-d", strtotime($date));
 
-        $sql = "UPDATE sales SET product_id= '{$p_id}',qty={$s_qty},price='{$s_total}',date='{$s_date}' WHERE id ='{$sale['id']}'";
+        $sql = "UPDATE sales SET product_id= '{$p_id}',quantity={$s_quantity},price='{$s_total}',date='{$s_date}' WHERE id ='{$sale['id']}'";
 
         $result = $db->run_query($sql);
 
         if ($result && $db->affected_rows() === 1) {
-            update_product_qty($s_qty, $p_id);
+            update_product_qty($s_quantity, $p_id);
             $session->msg("success", "Sale updated.");
             redirect_to_page('edit_sale.php?id=' . $sale['id'], false);
         } else {
@@ -43,11 +43,19 @@ if (isset($_POST['update_sale'])) {
 
 ?>
 <?php include_once('../header.php'); ?>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1>Edit Sale!</h1>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-6">
         <?php echo make_alert_msg($msg); ?>
     </div>
 </div>
+
 <div class="row">
 
     <div class="col-md-12">
@@ -65,7 +73,7 @@ if (isset($_POST['update_sale'])) {
                 <table class="table table-bordered">
                     <thead>
                     <th> Product title</th>
-                    <th> Qty</th>
+                    <th> Quantity</th>
                     <th> Price</th>
                     <th> Total</th>
                     <th> Date</th>
@@ -81,7 +89,7 @@ if (isset($_POST['update_sale'])) {
                             </td>
                             <td id="s_qty">
                                 <input type="text" class="form-control" name="quantity"
-                                       value="<?php echo (int)$sale['qty']; ?>">
+                                       value="<?php echo (int)$sale['quantity']; ?>">
                             </td>
                             <td id="s_price">
                                 <input type="text" class="form-control" name="price"

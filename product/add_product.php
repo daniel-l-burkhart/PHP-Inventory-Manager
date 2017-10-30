@@ -9,20 +9,18 @@ $all_categories = get_all_from_table('categories');
 <?php
 if (isset($_POST['add_product'])) {
 
-    $req_fields = array('product-title', 'product-category', 'product-quantity', 'buying-price', 'selling-price');
+    $req_fields = array('product-title', 'product-category', 'product-quantity', 'cost-price', 'selling-price');
     validate_fields($req_fields);
 
     if (empty($errors)) {
 
         $p_name = make_HTML_compliant($db->get_escape_string($_POST['product-title']));
         $p_cat = make_HTML_compliant($db->get_escape_string($_POST['product-category']));
-        $p_qty = make_HTML_compliant($db->get_escape_string($_POST['product-quantity']));
-        $p_buy = make_HTML_compliant($db->get_escape_string($_POST['buying-price']));
+        $p_quantity = make_HTML_compliant($db->get_escape_string($_POST['product-quantity']));
+        $p_cost = make_HTML_compliant($db->get_escape_string($_POST['cost-price']));
         $p_sale = make_HTML_compliant($db->get_escape_string($_POST['selling-price']));
 
-        $date = make_date();
-
-        $query = "INSERT INTO products (name, quantity, buy_price, sale_price, category_id, date) VALUES ('{$p_name}', '{$p_qty}', '{$p_buy}', '{$p_sale}', '{$p_cat}', '{$date}') ON DUPLICATE KEY UPDATE name='{$p_name}'";
+        $query = "INSERT INTO products (name, quantity, cost_price, sale_price, category_id, date) VALUES ('{$p_name}', '{$p_quantity}', '{$p_cost}', '{$p_sale}', '{$p_cat}', NOW()) ON DUPLICATE KEY UPDATE name='{$p_name}'";
 
         if ($db->run_query($query)) {
             $session->msg('success', "Product added ");
@@ -108,8 +106,8 @@ if (isset($_POST['add_product'])) {
                      <span class="input-group-addon">
                        <i class="glyphicon glyphicon-usd"></i>
                      </span>
-                                        <input type="number" class="form-control" name="buying-price"
-                                               placeholder="Buying Price - i.e. 9.99">
+                                        <input type="number" class="form-control" name="cost-price"
+                                               placeholder="Vendor Cost Price - i.e. 9.99">
 
                                     </div>
                                 </div>

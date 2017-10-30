@@ -27,23 +27,26 @@ if (isset($_POST['submit'])) {
 <?php include_once('../header.php'); ?>
 
 <?php if ($results): ?>
-    <div class="page-break">
-        <div class="sale-head pull-right">
+    <div class="container">
+    <div class="jumbotron">
             <h1>Sales Report</h1>
             <strong><?php if (isset($start_date)) {
+                    echo "From ";
                     echo $start_date;
-                } ?> To <?php if (isset($end_date)) {
+                } ?> <?php if (isset($end_date)) {
+                    echo "To ";
                     echo $end_date;
                 } ?> </strong>
         </div>
+
         <table class="table table-border">
             <thead>
             <tr>
                 <th>Date</th>
                 <th>Product Title</th>
-                <th>Buying Price</th>
+                <th>Vendor Cost Price</th>
                 <th>Selling Price</th>
-                <th>Total Qty</th>
+                <th>Total Quantity</th>
                 <th>TOTAL</th>
             </tr>
             </thead>
@@ -51,13 +54,13 @@ if (isset($_POST['submit'])) {
             <?php foreach ($results as $result): ?>
                 <tr>
                     <td class=""><?php echo make_HTML_compliant($result['date']); ?></td>
-                    <td class="desc">
+                    <td>
                         <h6><?php echo make_HTML_compliant(ucfirst($result['name'])); ?></h6>
                     </td>
-                    <td class="text-right"><?php echo make_HTML_compliant($result['buy_price']); ?></td>
+                    <td class="text-right"><?php echo make_HTML_compliant($result['cost_price']); ?></td>
                     <td class="text-right"><?php echo make_HTML_compliant($result['sale_price']); ?></td>
                     <td class="text-right"><?php echo make_HTML_compliant($result['total_sales']); ?></td>
-                    <td class="text-right"><?php echo make_HTML_compliant($result['total_saleing_price']); ?></td>
+                    <td class="text-right"><?php echo make_HTML_compliant($result['total_selling_price']); ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -77,6 +80,7 @@ if (isset($_POST['submit'])) {
             </tfoot>
         </table>
     </div>
+
     <?php
 else:
     $session->msg("danger", "Sorry no sales has been found. ");
@@ -84,5 +88,5 @@ else:
 endif;
 ?>
 
-<?php include_once('../footer.php.php'); ?>
+<?php include_once('../footer.php'); ?>
 

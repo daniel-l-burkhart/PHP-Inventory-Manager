@@ -1,7 +1,8 @@
 <?php
 $page_title = 'All categories';
 require_once('../includes/load.php');
-validate_access_level(1);
+
+validate_access_level(3);
 
 $all_categories = get_all_from_table('categories')
 ?>
@@ -34,18 +35,20 @@ if (isset($_POST['add_new_category'])) {
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center row">
         <h1>Categories!</h1>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <?php echo make_alert_msg($msg); ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?php echo make_alert_msg($msg); ?>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-5">
+
+    <?php if(get_user_level() === '1' || get_user_level() === '2'): ?>
+
+    <div class="row">
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <strong>
@@ -54,7 +57,7 @@ if (isset($_POST['add_new_category'])) {
                 </strong>
             </div>
 
-           <div class="panel-body">
+            <div class="panel-body">
                 <form method="post" action="category.php">
                     <div class="form-group">
                         <input type="text" class="form-control" name="category-name" placeholder="Category Name">
@@ -65,7 +68,10 @@ if (isset($_POST['add_new_category'])) {
 
         </div>
     </div>
-    <div class="col-md-7">
+    <?php endif; ?>
+
+
+    <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <strong>
@@ -78,28 +84,35 @@ if (isset($_POST['add_new_category'])) {
                     <thead>
                     <tr>
                         <th>Categories</th>
-                        <th class="text-center" >Actions</th>
+
+                        <?php if(get_user_level() === '1' || get_user_level() === '2'): ?>
+
+                        <th class="text-center">Actions</th>
+                        <?php endif; ?>
                     </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($all_categories as $currCategory): ?>
                         <tr>
                             <td><?php echo make_HTML_compliant(ucfirst($currCategory['name'])); ?></td>
+
+                        <?php if(get_user_level() === '1' || get_user_level() === '2'): ?>
                             <td class="text-center">
                                 <div class="btn-group">
 
                                     <a href="edit_category.php?id=<?php echo (int)$currCategory['id']; ?>"
-                                       class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit">
+                                       class="btn btn-sm btn-warning" data-toggle="tooltip" title="Edit">
 
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
 
                                     <a href="delete_category.php?id=<?php echo (int)$currCategory['id']; ?>"
-                                       class="btn btn-xs btn-danger" data-toggle="tooltip" title="Remove">
+                                       class="btn btn-sm btn-danger" data-toggle="tooltip" title="Remove">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </a>
                                 </div>
                             </td>
+                        <?php endif; ?>
 
                         </tr>
                     <?php endforeach; ?>
@@ -108,6 +121,8 @@ if (isset($_POST['add_new_category'])) {
             </div>
         </div>
     </div>
+
 </div>
-</div>
+
+
 <?php include_once('../footer.php'); ?>

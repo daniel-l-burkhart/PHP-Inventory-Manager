@@ -7,7 +7,8 @@
 <?php
  $products_sold   = find_highest_selling_product('10');
  $recent_products = find_recent_product_added('5');
- $recent_sales    = find_recent_sale_added('5')
+ $recent_sales    = find_recent_sale_added('5');
+ $unapproved_users = unapproved_users_count();
 ?>
 <?php include_once('header.php'); ?>
 
@@ -20,12 +21,32 @@
   <div class="row">
    <div class="col-md-12">
       <div class="panel">
-        <div class="jumbotron text-center">
+        <div class="jumbotron text-center row">
            <h1>Hello Administrators!</h1>
         </div>
       </div>
    </div>
   </div>
+
+<?php if($unapproved_users > 0): ?>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <strong>
+                        <span>Unapproved Users</span>
+                    </strong
+                </div>
+                <div class="panel-body">
+                    <h3> There are unapproved users that need to be reviewed</h3>
+                    <h4><a href="/~dburkhart1/project2/approve_user.php">Click here to approve users.</a> </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
 <div class="container">
   <div class="row">
    <div class="col-md-12">

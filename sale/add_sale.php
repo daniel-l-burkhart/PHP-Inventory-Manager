@@ -2,7 +2,7 @@
 $page_title = 'Add Sale';
 require_once('../includes/load.php');
 
-validate_access_level(2);
+validate_access_level(3);
 ?>
 <?php
 
@@ -15,16 +15,15 @@ if (isset($_POST['add_sale'])) {
     if (empty($errors)) {
 
         $p_id = $db->get_escape_string((int)$_POST['s_id']);
-        $s_qty = $db->get_escape_string((int)$_POST['quantity']);
+        $s_quantity = $db->get_escape_string((int)$_POST['quantity']);
         $s_total = $db->get_escape_string($_POST['total']);
         $date = $db->get_escape_string($_POST['date']);
-        $s_date = make_date();
 
-        $sql = "INSERT INTO sales (product_id,qty,price,date) VALUES ('{$p_id}','{$s_qty}','{$s_total}','{$s_date}');";
+        $sql = "INSERT INTO sales (product_id,quantity,price,date) VALUES ('{$p_id}','{$s_quantity}','{$s_total}',NOW());";
 
         if ($db->run_query($sql)) {
 
-            update_product_qty($s_qty, $p_id);
+            update_product_qty($s_quantity, $p_id);
             $session->msg("success", "Sale added. ");
             redirect_to_page('add_sale.php', false);
 
@@ -48,6 +47,7 @@ if (isset($_POST['add_sale'])) {
     </div>
 </div>
 
+<div class="container">
 <div class="row">
     <div class="col-md-12">
         <?php echo make_alert_msg($msg); ?>
@@ -60,7 +60,9 @@ if (isset($_POST['add_sale'])) {
                     <input type="text" id="sug_input" class="form-control" name="title"
                            placeholder="Search for product name">
                 </div>
-                <div id="result" class="list-group"></div>
+                <ul id="result" class="list-group">
+
+                </ul>
             </div>
         </form>
     </div>
@@ -82,7 +84,7 @@ if (isset($_POST['add_sale'])) {
                         <thead>
                         <th> Item</th>
                         <th> Price</th>
-                        <th> Qty</th>
+                        <th> Quantity</th>
                         <th> Total</th>
                         <th> Date</th>
                         <th> Action</th>
@@ -94,6 +96,7 @@ if (isset($_POST['add_sale'])) {
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <?php include_once('../footer.php'); ?>

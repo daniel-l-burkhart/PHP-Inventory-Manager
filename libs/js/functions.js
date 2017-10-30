@@ -1,3 +1,6 @@
+/**
+ * Ajax function to search through products and suggest it to the person trying to add a sale
+ */
 function suggetion() {
 
     $('#sug_input').keyup(function (e) {
@@ -40,6 +43,9 @@ function suggetion() {
 
 }
 
+/**
+ * Total price with quantity.
+ */
 function total() {
     $('#product_info input').change(function (e) {
         var price = +$('input[name=price]').val() || 0;
@@ -49,6 +55,9 @@ function total() {
     });
 }
 
+/**
+ * Submit from the suggestion form into the add sale form
+ */
 $('#sug-form').submit(function (e) {
     var formData = {
         'p_name': $('input[name=title]').val()
@@ -72,6 +81,9 @@ $('#sug-form').submit(function (e) {
 });
 
 
+/**
+ * Toggle function that handles the tooltip of the edit and delete actions
+ */
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -83,7 +95,7 @@ $(document).ready(function () {
 
     $('.datepicker')
         .datepicker({
-            format: 'yyyy-mm-dd',
+            format: 'mm-dd-yyyy',
             todayHighlight: true,
             autoclose: true
         });

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="coddGSU">
+    <serverData>
+      <paths name="coddGSU">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/dburkhart1/public_html/project2" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

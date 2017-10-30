@@ -2,7 +2,7 @@
 $page_title = 'All sale';
 require_once('../includes/load.php');
 
-validate_access_level(2);
+validate_access_level(3);
 ?>
 
 <?php
@@ -43,7 +43,9 @@ $all_sales = find_all_sales();
                         <th class="text-center"> Quantity</th>
                         <th class="text-center"> Total</th>
                         <th class="text-center"> Date</th>
-                        <th class="text-center"> Actions</th>
+                        <?php if (get_user_level() === '1' || get_user_level() === '2'): ?>
+                            <th class="text-center"> Actions</th>
+                        <?php endif; ?>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,7 +56,7 @@ $all_sales = find_all_sales();
                                 <?php echo make_HTML_compliant($sale['name']); ?>
                             </td>
                             <td class="text-center">
-                                <?php echo (int)$sale['qty']; ?>
+                                <?php echo (int)$sale['quantity']; ?>
                             </td>
                             <td class="text-center">
                                 <?php echo make_HTML_compliant($sale['price']); ?>
@@ -63,18 +65,21 @@ $all_sales = find_all_sales();
                                 <?php echo $sale['date']; ?>
                             </td>
 
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <a href="edit_sale.php?id=<?php echo (int)$sale['id']; ?>"
-                                       class="btn btn-warning btn-xs" title="Edit" data-toggle="tooltip">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </a>
-                                    <a href="delete_sale.php?id=<?php echo (int)$sale['id']; ?>"
-                                       class="btn btn-danger btn-xs" title="Delete" data-toggle="tooltip">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </a>
-                                </div>
-                            </td>
+                            <?php if (get_user_level() === '1' || get_user_level() === '2'): ?>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a href="edit_sale.php?id=<?php echo (int)$sale['id']; ?>"
+                                           class="btn btn-warning btn-sm" title="Edit" data-toggle="tooltip">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </a>
+                                        <a href="delete_sale.php?id=<?php echo (int)$sale['id']; ?>"
+                                           class="btn btn-danger btn-sm" title="Delete" data-toggle="tooltip">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            <?php endif; ?>
+
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
