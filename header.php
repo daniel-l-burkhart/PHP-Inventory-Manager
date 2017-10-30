@@ -35,7 +35,7 @@
 
 <?php else: ?>
 
-        <?php include_once('guest_menu.php'); ?>
+    <?php include_once('guest_menu.php'); ?>
 
 <?php endif; ?>
 

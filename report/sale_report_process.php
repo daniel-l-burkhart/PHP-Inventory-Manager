@@ -28,12 +28,12 @@ if (isset($_POST['submit'])) {
 
 <?php if ($results): ?>
     <div class="container">
-    <div class="jumbotron">
+        <div class="jumbotron">
             <h1>Sales Report</h1>
             <strong><?php if (isset($start_date)) {
                     echo "From ";
                     echo $start_date;
-                } ?> <?php if (isset($end_date)) {
+                } ?><?php if (isset($end_date)) {
                     echo "To ";
                     echo $end_date;
                 } ?> </strong>

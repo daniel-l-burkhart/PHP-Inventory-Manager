@@ -1,14 +1,13 @@
 <?php
 $page_title = 'Manager Dashboard';
 require_once('includes/load.php');
-
 validate_access_level(2);
 ?>
-<?php
-$products_sold   = find_highest_selling_product('10');
-$recent_products = find_recent_product_added('5');
-$recent_sales    = find_recent_sale_added('5');
 
+<?php
+$products_sold = find_highest_selling_product('10');
+$recent_products = find_recent_product_added('5');
+$recent_sales = find_recent_sale_added('5');
 ?>
 
 <?php include_once('header.php'); ?>
@@ -48,9 +47,9 @@ $recent_sales    = find_recent_sale_added('5');
                         <tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($products_sold as  $product_sold): ?>
+                        <?php foreach ($products_sold as $product_sold): ?>
                             <tr>
-                                <td><?php echo make_HTML_compliant(uppercase_first_letter($product_sold['name'])); ?></td>
+                                <td><?php echo make_HTML_compliant(capitalize_first_letter($product_sold['name'])); ?></td>
                                 <td><?php echo (int)$product_sold['totalSold']; ?></td>
                                 <td><?php echo (int)$product_sold['totalQty']; ?></td>
                             </tr>
@@ -78,15 +77,16 @@ $recent_sales    = find_recent_sale_added('5');
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($recent_sales as  $recent_sale): ?>
+                        <?php foreach ($recent_sales as $recent_sale): ?>
                             <tr>
                                 <td>
                                     <a href="sale/edit_sale.php?id=<?php echo (int)$recent_sale['id']; ?>">
-                                        <?php echo make_HTML_compliant(uppercase_first_letter($recent_sale['name'])); ?>
+                                        <?php echo make_HTML_compliant(capitalize_first_letter($recent_sale['name'])); ?>
                                     </a>
                                 </td>
                                 <td><?php echo make_HTML_compliant(ucfirst($recent_sale['date'])); ?></td>
-                                <td>$<?php echo make_HTML_compliant(uppercase_first_letter($recent_sale['price'])); ?></td>
+                                <td>
+                                    $<?php echo make_HTML_compliant(capitalize_first_letter($recent_sale['price'])); ?></td>
                             </tr>
 
                         <?php endforeach; ?>
@@ -106,17 +106,18 @@ $recent_sales    = find_recent_sale_added('5');
                 <div class="panel-body">
 
                     <div class="list-group">
-                        <?php foreach ($recent_products as  $recent_product): ?>
-                            <a class="list-group-item clearfix" href="product/edit_product.php?id=<?php echo    (int)$recent_product['id'];?>">
+                        <?php foreach ($recent_products as $recent_product): ?>
+                            <a class="list-group-item clearfix"
+                               href="product/edit_product.php?id=<?php echo (int)$recent_product['id']; ?>">
                                 <h4 class="list-group-item-heading">
                                     <span class="glyphicon glyphicon-tag"></span>
-                                    <?php echo make_HTML_compliant(uppercase_first_letter($recent_product['name']));?>
+                                    <?php echo make_HTML_compliant(capitalize_first_letter($recent_product['name'])); ?>
                                     <span class="label label-warning pull-right">
                  $<?php echo (int)$recent_product['sale_price']; ?>
                   </span>
                                 </h4>
                                 <span class="list-group-item-text pull-right">
-                <?php echo make_HTML_compliant(uppercase_first_letter($recent_product['category'])); ?>
+                <?php echo make_HTML_compliant(capitalize_first_letter($recent_product['category'])); ?>
               </span>
                             </a>
                         <?php endforeach; ?>

@@ -45,29 +45,29 @@ if (isset($_POST['add_new_category'])) {
         </div>
     </div>
 
-    <?php if(get_user_level() === '1' || get_user_level() === '2'): ?>
+    <?php if (get_user_level() === '1' || get_user_level() === '2'): ?>
 
-    <div class="row">
+        <div class="row">
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <strong>
-                    <span class="glyphicon glyphicon-th"></span>
-                    <span>Add New Category</span>
-                </strong>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>
+                        <span class="glyphicon glyphicon-th"></span>
+                        <span>Add New Category</span>
+                    </strong>
+                </div>
+
+                <div class="panel-body">
+                    <form method="post" action="category.php">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="category-name" placeholder="Category Name">
+                        </div>
+                        <button type="submit" name="add_new_category" class="btn btn-primary">Add category</button>
+                    </form>
+                </div>
+
             </div>
-
-            <div class="panel-body">
-                <form method="post" action="category.php">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="category-name" placeholder="Category Name">
-                    </div>
-                    <button type="submit" name="add_new_category" class="btn btn-primary">Add category</button>
-                </form>
-            </div>
-
         </div>
-    </div>
     <?php endif; ?>
 
 
@@ -85,9 +85,9 @@ if (isset($_POST['add_new_category'])) {
                     <tr>
                         <th>Categories</th>
 
-                        <?php if(get_user_level() === '1' || get_user_level() === '2'): ?>
+                        <?php if (get_user_level() === '1' || get_user_level() === '2'): ?>
 
-                        <th class="text-center">Actions</th>
+                            <th class="text-center">Actions</th>
                         <?php endif; ?>
                     </tr>
                     </thead>
@@ -96,23 +96,23 @@ if (isset($_POST['add_new_category'])) {
                         <tr>
                             <td><?php echo make_HTML_compliant(ucfirst($currCategory['name'])); ?></td>
 
-                        <?php if(get_user_level() === '1' || get_user_level() === '2'): ?>
-                            <td class="text-center">
-                                <div class="btn-group">
+                            <?php if (get_user_level() === '1' || get_user_level() === '2'): ?>
+                                <td class="text-center">
+                                    <div class="btn-group">
 
-                                    <a href="edit_category.php?id=<?php echo (int)$currCategory['id']; ?>"
-                                       class="btn btn-sm btn-warning" data-toggle="tooltip" title="Edit">
+                                        <a href="edit_category.php?id=<?php echo (int)$currCategory['id']; ?>"
+                                           class="btn btn-sm btn-warning" data-toggle="tooltip" title="Edit">
 
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </a>
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </a>
 
-                                    <a href="delete_category.php?id=<?php echo (int)$currCategory['id']; ?>"
-                                       class="btn btn-sm btn-danger" data-toggle="tooltip" title="Remove">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </a>
-                                </div>
-                            </td>
-                        <?php endif; ?>
+                                        <a href="delete_category.php?id=<?php echo (int)$currCategory['id']; ?>"
+                                           class="btn btn-sm btn-danger" data-toggle="tooltip" title="Remove">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            <?php endif; ?>
 
                         </tr>
                     <?php endforeach; ?>

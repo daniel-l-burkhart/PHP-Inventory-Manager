@@ -48,55 +48,55 @@ if (isset($_POST['add_sale'])) {
 </div>
 
 <div class="container">
-<div class="row">
-    <div class="col-md-12">
-        <?php echo make_alert_msg($msg); ?>
-        <form method="post" action="suggestion.php" autocomplete="off" id="sug-form">
-            <div class="form-group">
-                <div class="input-group">
+    <div class="row">
+        <div class="col-md-12">
+            <?php echo make_alert_msg($msg); ?>
+            <form method="post" action="suggestion.php" autocomplete="off" id="sug-form">
+                <div class="form-group">
+                    <div class="input-group">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-primary">Find It</button>
             </span>
-                    <input type="text" id="sug_input" class="form-control" name="title"
-                           placeholder="Search for product name">
+                        <input type="text" id="sug_input" class="form-control" name="title"
+                               placeholder="Search for product name">
+                    </div>
+                    <ul id="result" class="list-group">
+
+                    </ul>
                 </div>
-                <ul id="result" class="list-group">
-
-                </ul>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading clearfix">
-                <strong>
-                    <span class="glyphicon glyphicon-th"></span>
-                    <span>Add Sale</span>
-                </strong>
-            </div>
-            <div class="panel-body">
-                <form method="post" action="add_sale.php">
-                    <table class="table table-bordered">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <strong>
+                        <span class="glyphicon glyphicon-th"></span>
+                        <span>Add Sale</span>
+                    </strong>
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="add_sale.php">
+                        <table class="table table-bordered">
 
-                        <thead>
-                        <th> Item</th>
-                        <th> Price</th>
-                        <th> Quantity</th>
-                        <th> Total</th>
-                        <th> Date</th>
-                        <th> Action</th>
-                        </thead>
+                            <thead>
+                            <th> Item</th>
+                            <th> Price</th>
+                            <th> Quantity</th>
+                            <th> Total</th>
+                            <th> Date</th>
+                            <th> Action</th>
+                            </thead>
 
-                        <tbody id="product_info"></tbody>
-                    </table>
-                </form>
+                            <tbody id="product_info"></tbody>
+                        </table>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <?php include_once('../footer.php'); ?>

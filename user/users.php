@@ -25,23 +25,23 @@ $unapproved_users = unapproved_users_count();
 </div>
 <br/>
 
-<?php if($unapproved_users > 0): ?>
+<?php if ($unapproved_users > 0): ?>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-            <strong>
-            <span>Unapproved Users</span>
-        </strong
-        </div>
-        <div class="panel-body">
-            <h3> There are unapproved users that need to be reviewed</h3>
-            <h4><a href="approve_user.php">Click here to approve users.</a> </h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <strong>
+                        <span>Unapproved Users</span>
+                    </strong
+                </div>
+                <div class="panel-body">
+                    <h3> There are unapproved users that need to be reviewed</h3>
+                    <h4><a href="approve_user.php">Click here to approve users.</a></h4>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 <?php endif; ?>
 
 <div class="row">

@@ -1,11 +1,11 @@
 <?php
 $page_title = 'Employee Dashboard';
 require_once('includes/load.php');
-
 validate_access_level(3);
 ?>
+
 <?php
-$products_sold   = find_highest_selling_product('10');
+$products_sold = find_highest_selling_product('10');
 ?>
 
 <?php include_once('header.php'); ?>
@@ -45,9 +45,9 @@ $products_sold   = find_highest_selling_product('10');
                         <tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($products_sold as  $product_sold): ?>
+                        <?php foreach ($products_sold as $product_sold): ?>
                             <tr>
-                                <td><?php echo make_HTML_compliant(uppercase_first_letter($product_sold['name'])); ?></td>
+                                <td><?php echo make_HTML_compliant(capitalize_first_letter($product_sold['name'])); ?></td>
                                 <td><?php echo (int)$product_sold['totalSold']; ?></td>
                                 <td><?php echo (int)$product_sold['totalQty']; ?></td>
                             </tr>

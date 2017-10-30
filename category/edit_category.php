@@ -49,10 +49,10 @@ if (isset($_POST['edit_cat'])) {
         <h1>Edit Category</h1>
     </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <?php echo make_alert_msg($msg); ?>
-    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <?php echo make_alert_msg($msg); ?>
+        </div>
 
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -71,7 +71,7 @@ if (isset($_POST['edit_cat'])) {
                 </form>
             </div>
         </div>
-</div>
+    </div>
 
 </div>
 

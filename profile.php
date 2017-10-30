@@ -75,7 +75,7 @@ if (isset($_POST['update-pass'])) {
 
 <div class="container">
     <div class="jumbotron text-center">
-        <h1><?php echo uppercase_first_letter($user_p['name']); ?> Profile</h1>
+        <h1><?php echo capitalize_first_letter($user_p['name']); ?> Profile</h1>
     </div>
 
 
@@ -190,4 +190,4 @@ if (isset($_POST['update-pass'])) {
 </div>
 
 
-    <?php include_once('footer.php'); ?>
+<?php include_once('footer.php'); ?>

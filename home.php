@@ -1,22 +1,22 @@
 <?php
-  $page_title = 'Home Page';
-  require_once('includes/load.php');
-  if (!$session->isUserLoggedIn(true)) {
-      redirect_to_page('index.php', false);
-  }
+$page_title = 'Home Page';
+require_once('includes/load.php');
+if (!$session->isUserLoggedIn(true)) {
+    redirect_to_page('index.php', false);
+}
 ?>
 <?php include_once('header.php'); ?>
 <div class="row">
-  <div class="col-md-12">
-    <?php echo make_alert_msg($msg); ?>
-  </div>
- <div class="col-md-12">
-    <div class="panel">
-      <div class="jumbotron text-center">
-         <h1>Welcome to the Inventory System</h1>
-         <p>You can use the menu bar above to navigate through the site.</p>
-      </div>
+    <div class="col-md-12">
+        <?php echo make_alert_msg($msg); ?>
     </div>
- </div>
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="jumbotron text-center">
+                <h1>Welcome to the Inventory System</h1>
+                <p>You can use the menu bar above to navigate through the site.</p>
+            </div>
+        </div>
+    </div>
 </div>
 <?php include_once('footer.php'); ?>

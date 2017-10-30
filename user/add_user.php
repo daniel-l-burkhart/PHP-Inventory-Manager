@@ -19,7 +19,7 @@ if (isset($_POST['add_user'])) {
         $user_level = (int)$db->get_escape_string($_POST['level']);
         $password = sha1($password);
 
-        if(get_user_level() === '1'){
+        if (get_user_level() === '1') {
 
             $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','1')";
 
@@ -31,7 +31,7 @@ if (isset($_POST['add_user'])) {
 
         if ($db->run_query($query)) {
 
-            if(get_user_level() === '1') {
+            if (get_user_level() === '1') {
                 $session->msg('success', "User account has been created! ");
                 redirect_to_page('add_user.php', false);
             } else {
@@ -54,11 +54,11 @@ if (isset($_POST['add_user'])) {
 
 <?php if (get_user_level() === '1'): ?>
 
-<div class="container">
-    <div class="jumbotron text-center row">
-        <h1>Add New User</h1>
+    <div class="container">
+        <div class="jumbotron text-center row">
+            <h1>Add New User</h1>
+        </div>
     </div>
-</div>
 
 <?php else: ?>
 

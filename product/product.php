@@ -6,11 +6,11 @@ $products = get_all_products();
 ?>
 <?php include_once('../header.php'); ?>
 
-<div class="container">
-    <div class="jumbotron text-center">
-        <h1>View Products!</h1>
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1>View Products!</h1>
+        </div>
     </div>
-</div>
 
     <div class="row">
         <div class="col-md-12">
@@ -33,7 +33,7 @@ $products = get_all_products();
                         <tr>
                             <th> Product Title</th>
                             <th class="text-center"> Category</th>
-                            <th class="text-center" > In stock</th>
+                            <th class="text-center"> In stock</th>
 
                             <?php if (get_user_level() === '1' OR get_current_user() === '2'): ?>
                                 <th class="text-center"> Vendor Cost Price</th>
@@ -42,7 +42,7 @@ $products = get_all_products();
 
                             <?php if (get_user_level() === '1' OR get_current_user() == '2'): ?>
 
-                                <th class="text-center" > Product Added</th>
+                                <th class="text-center"> Product Added</th>
                                 <th class="text-center"> Actions</th>
                             <?php endif; ?>
                         </tr>
