@@ -54,7 +54,7 @@ $unapproved_users = unapproved_users_count();
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <strong>
-                        <span class="glyphicon glyphicon-th"></span>
+                        <span class="glyphicon glyphicon-usd"></span>
                         <span>Highest Selling Products</span>
                     </strong>
                 </div>

@@ -78,10 +78,7 @@ if (isset($_POST['update-pass'])) {
         <h1><?php echo capitalize_first_letter($user_p['name']); ?> Profile</h1>
     </div>
 
-
     <div class="row">
-        <div class="col-md-12">
-
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
                     <strong>
@@ -127,8 +124,6 @@ if (isset($_POST['update-pass'])) {
                 </div>
             </div>
         </div>
-
-    </div>
 
     <div class="row">
 

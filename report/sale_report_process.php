@@ -54,9 +54,7 @@ if (isset($_POST['submit'])) {
             <?php foreach ($results as $result): ?>
                 <tr>
                     <td class=""><?php echo make_HTML_compliant($result['date']); ?></td>
-                    <td>
-                        <h6><?php echo make_HTML_compliant(ucfirst($result['name'])); ?></h6>
-                    </td>
+                    <td><strong><?php echo make_HTML_compliant(ucfirst($result['name'])); ?></strong></td>
                     <td>$<?php echo make_HTML_compliant($result['cost_price']); ?></td>
                     <td>$<?php echo make_HTML_compliant($result['sale_price']); ?></td>
                     <td><?php echo make_HTML_compliant($result['total_sales']); ?></td>
