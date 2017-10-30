@@ -312,6 +312,14 @@ function find_product_by_title($product_name)
     return $result;
 }
 
+/**
+ * Find all products by name
+ *
+ * @param $title
+ *      The product name
+ * @return array
+ *      All products
+ */
 function find_all_product_info_by_title($title)
 {
     $sql = "SELECT * FROM products ";
@@ -320,12 +328,22 @@ function find_all_product_info_by_title($title)
     return find_by_sql($sql);
 }
 
+/**
+ * Updates the product quantity
+ *
+ * @param $qty
+ *      The quantity
+ * @param $p_id
+ *      The product ID
+ * @return bool
+ *      True if updated, false otherwise
+ */
 function update_product_qty($qty, $p_id)
 {
     global $db;
     $qty = (int)$qty;
     $id = (int)$p_id;
-    $sql = "UPDATE products SET quantity=quantity -q{$qty}ty WHERE id = '{$id}'";
+    $sql = "UPDATE products SET quantity=quantity-{$qty} WHERE id = '{$id}'";
     $result = $db->run_query($sql);
 
     if ($db->affected_rows() === 1) {
@@ -336,6 +354,14 @@ function update_product_qty($qty, $p_id)
 
 }
 
+/**
+ * Finds the most recent products added
+ *
+ * @param $limit
+ *      The number of products returned
+ * @return array
+ *      The products
+ */
 function find_recent_product_added($limit)
 {
     global $db;
@@ -346,6 +372,14 @@ function find_recent_product_added($limit)
     return find_by_sql($sql);
 }
 
+/**
+ * Finds the highest selling products
+ *
+ * @param $limit
+ *      The number of products returned
+ * @return array
+ *      The highest selling products
+ */
 function find_highest_selling_product($limit)
 {
     global $db;
@@ -357,6 +391,12 @@ function find_highest_selling_product($limit)
     return $db->run_query($sql);
 }
 
+/**
+ * Finds all the sales
+ *
+ * @return array
+ *      The sales
+ */
 function find_all_sales()
 {
     $sql = "SELECT s.id,s.quantity,s.price,s.date,p.name";
@@ -367,6 +407,14 @@ function find_all_sales()
 }
 
 
+/**
+ * Finds the recent sales
+ *
+ * @param $limit
+ *      The number of sales returned
+ * @return array
+ *      The most recent sales added
+ */
 function find_recent_sale_added($limit)
 {
     global $db;
@@ -378,6 +426,16 @@ function find_recent_sale_added($limit)
 }
 
 
+/**
+ * Sales report between two dates
+ *
+ * @param $start_date
+ *      The start date
+ * @param $end_date
+ *      The end date
+ * @return mixed
+ *      The result of the query
+ */
 function find_sale_by_dates($start_date, $end_date)
 {
     global $db;
@@ -396,10 +454,19 @@ function find_sale_by_dates($start_date, $end_date)
     $sql .= " GROUP BY DATE(s.date),p.name";
     $sql .= " ORDER BY DATE(s.date) DESC";
 
-    //return find_by_sql($sql);
     return $db->run_query($sql);
 }
 
+/**
+ * Sales by day
+ *
+ * @param $year
+ *      The year
+ * @param $month
+ *      The month
+ * @return array
+ *      The sales that are returned from the query
+ */
 function dailySales($year, $month)
 {
     $sql = "SELECT s.quantity,";
@@ -412,6 +479,14 @@ function dailySales($year, $month)
     return find_by_sql($sql);
 }
 
+/**
+ * Sales by month
+ *
+ * @param $year
+ *      The year
+ * @return array
+ *      The sales that are returned from the query
+ */
 function monthlySales($year)
 {
     $sql = "SELECT s.quantity,";
