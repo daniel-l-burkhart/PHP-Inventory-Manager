@@ -6,7 +6,7 @@ validate_access_level(1);
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron text-center row">
         <h1>Sales Report by Date!</h1>
     </div>
 </div>
@@ -17,13 +17,17 @@ validate_access_level(1);
             <?php echo make_alert_msg($msg); ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-10">
-            <div class="panel">
-                <div class="panel-heading">
 
-                </div>
-                <div class="panel-body">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <strong>
+                    <span class="glyphicon glyphicon-list-alt"></span>
+                    <span>Sales Report by Date Range</span>
+                </strong>
+            </div>
+            <div class="panel-body">
+
                     <form class="clearfix" method="post" action="sale_report_process.php">
                         <div class="form-group">
                             <label class="form-label">Date Range</label>

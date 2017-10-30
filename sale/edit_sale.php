@@ -45,7 +45,7 @@ if (isset($_POST['update_sale'])) {
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron text-center row">
         <h1>Edit Sale!</h1>
     </div>
 </div>

@@ -12,7 +12,7 @@ if (!$session->isUserLoggedIn(true)) {
     </div>
     <div class="col-md-12">
         <div class="panel">
-            <div class="jumbotron text-center">
+            <div class="jumbotron text-center row">
                 <h1>Welcome to the Inventory System</h1>
                 <p>You can use the menu bar above to navigate through the site.</p>
             </div>

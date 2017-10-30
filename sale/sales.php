@@ -12,7 +12,7 @@ $all_sales = find_all_sales();
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center row">
         <h1>Sales!</h1>
     </div>
 </div>

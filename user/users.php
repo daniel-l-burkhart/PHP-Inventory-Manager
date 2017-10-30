@@ -12,7 +12,7 @@ $unapproved_users = unapproved_users_count();
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron text-center row">
         <h1> User Management!</h1>
         <h3>Use this page to add, edit or delete users.</h3>
     </div>

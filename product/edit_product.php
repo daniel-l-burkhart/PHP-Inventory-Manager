@@ -54,7 +54,7 @@ if (isset($_POST['product'])) {
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center row">
         <h1>Edit Products!</h1>
     </div>
 </div>

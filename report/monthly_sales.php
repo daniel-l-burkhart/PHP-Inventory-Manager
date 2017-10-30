@@ -10,7 +10,7 @@ $sales = monthlySales($year);
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center row">
         <h1>Monthly Sales!</h1>
     </div>
 </div>

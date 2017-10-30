@@ -28,13 +28,13 @@ if (isset($_POST['submit'])) {
 
 <?php if ($results): ?>
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron text-center row">
             <h1>Sales Report</h1>
             <strong><?php if (isset($start_date)) {
                     echo "From ";
                     echo $start_date;
                 } ?><?php if (isset($end_date)) {
-                    echo "To ";
+                    echo " To ";
                     echo $end_date;
                 } ?> </strong>
         </div>
@@ -57,10 +57,10 @@ if (isset($_POST['submit'])) {
                     <td>
                         <h6><?php echo make_HTML_compliant(ucfirst($result['name'])); ?></h6>
                     </td>
-                    <td class="text-right"><?php echo make_HTML_compliant($result['cost_price']); ?></td>
-                    <td class="text-right"><?php echo make_HTML_compliant($result['sale_price']); ?></td>
-                    <td class="text-right"><?php echo make_HTML_compliant($result['total_sales']); ?></td>
-                    <td class="text-right"><?php echo make_HTML_compliant($result['total_selling_price']); ?></td>
+                    <td>$<?php echo make_HTML_compliant($result['cost_price']); ?></td>
+                    <td>$<?php echo make_HTML_compliant($result['sale_price']); ?></td>
+                    <td><?php echo make_HTML_compliant($result['total_sales']); ?></td>
+                    <td><?php echo make_HTML_compliant($result['total_selling_price']); ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

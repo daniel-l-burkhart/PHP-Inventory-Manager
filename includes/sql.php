@@ -440,10 +440,13 @@ function find_sale_by_dates($start_date, $end_date)
 {
     global $db;
 
+    $start_date = format_time_for_DB($start_date);
+    $end_date = format_time_for_DB($end_date);
+
     $start_date = date("Y-m-d", strtotime($start_date));
     $end_date = date("Y-m-d", strtotime($end_date));
 
-    $sql = "SELECT s.date, p.name,p.sale_price,p.cost_price,";
+    $sql = "SELECT s.date, p.name,p.sale_price, p.cost_price,";
     $sql .= "COUNT(s.product_id) AS total_records,";
     $sql .= "SUM(s.quantity) AS total_sales,";
     $sql .= "SUM(p.sale_price * s.quantity) AS total_selling_price,";
@@ -455,6 +458,29 @@ function find_sale_by_dates($start_date, $end_date)
     $sql .= " ORDER BY DATE(s.date) DESC";
 
     return $db->run_query($sql);
+}
+
+/**
+ * Formats time for the database
+ *
+ * @param $timestamp
+ *      The timestamp that is passed in
+ * @return string
+ *      The mysql DB formatted version of the date
+ */
+function format_time_for_DB($timestamp){
+    $timestamp_array = explode('-', $timestamp);
+    $timestamp_month = $timestamp_array[0];
+    $timestamp_day = $timestamp_array[1];
+    $timestamp_year = $timestamp_array[2];
+
+    $new_date = $timestamp_year;
+    $new_date .= "-";
+    $new_date .= $timestamp_month;
+    $new_date .= "-";
+    $new_date .= $timestamp_day;
+
+    return $new_date;
 }
 
 /**

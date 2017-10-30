@@ -74,7 +74,7 @@ if (isset($_POST['update-pass'])) {
 <?php include_once('header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center row">
         <h1><?php echo capitalize_first_letter($user_p['name']); ?> Profile</h1>
     </div>
 

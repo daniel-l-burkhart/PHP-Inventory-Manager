@@ -59,7 +59,7 @@ if (empty($errors)) {
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron text-center row">
 
         <h1> User Management!</h1>
         <h3>Use this page to approve users.</h3>

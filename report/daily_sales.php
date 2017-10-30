@@ -12,7 +12,7 @@ $sales = dailySales($year, $month);
 <?php include_once('../header.php'); ?>
 
 <div class="container">
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center row">
         <h1>Daily Sales!</h1>
     </div>
 </div>
