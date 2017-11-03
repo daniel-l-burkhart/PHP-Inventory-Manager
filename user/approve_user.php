@@ -10,18 +10,15 @@ $unapproved_users = find_unapproved_users();
 <?php
 
 if (empty($errors)) {
-
     if (isset($_POST['radio'])) {
 
         $value = $db->get_escape_string($_POST['radio']);
         if ($value === 'approve') {
 
             $userID = make_HTML_compliant($db->get_escape_string($_POST['uID']));
-
             $query = "UPDATE users SET status = '1' WHERE id = '{$userID}';";
 
             if ($db->run_query($query)) {
-
                 $session->msg('success', "User account has been approved! ");
                 redirect_to_page('approve_user.php', false);
             } else {
@@ -32,27 +29,21 @@ if (empty($errors)) {
         } elseif ($value === 'reject') {
 
             $userID = make_HTML_compliant($db->get_escape_string($_POST['uID']));
-
             $query = "DELETE FROM users WHERE id = '{$userID}';";
 
             if ($db->run_query($query)) {
-
                 $session->msg('success', "Rejected User has been deleted! ");
                 redirect_to_page('approve_user.php', false);
             } else {
                 $session->msg('danger', ' Sorry failed to reject!');
                 redirect_to_page('approve_user.php', false);
             }
-
         }
-
     }
-
 } else {
     $session->msg("danger", $errors);
     redirect_to_page('approve_user.php', false);
 }
-
 
 ?>
 
@@ -108,10 +99,8 @@ if (empty($errors)) {
 
                                     <input name="uID" type="hidden"
                                            value="<?php echo make_HTML_compliant($a_user['id']) ?>">
-
                                     <br/>
                                     <input type="submit" class="btn btn-success">
-
                                 </form>
 
                             </td>
@@ -123,4 +112,5 @@ if (empty($errors)) {
         </div>
     </div>
 </div>
+
 <?php include_once('../footer.php'); ?>

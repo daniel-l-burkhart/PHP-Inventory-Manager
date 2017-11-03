@@ -7,7 +7,7 @@ validate_access_level(1);
 <?php
 $year = date('Y');
 $month = date('m');
-$sales = dailySales($year, $month);
+$sales = get_sales_by_day($year, $month);
 ?>
 <?php include_once('../header.php'); ?>
 

@@ -24,13 +24,13 @@ if (isset($_POST['product'])) {
     if (empty($errors)) {
 
         $p_name = make_HTML_compliant($db->get_escape_string($_POST['product-title']));
-        $p_cat = (int)$_POST['product-category'];
+        $p_category = (int)$_POST['product-category'];
         $p_quantity = make_HTML_compliant($db->get_escape_string($_POST['product-quantity']));
-        $p_cost = make_HTML_compliant($db->get_escape_string($_POST['cost-price']));
-        $p_sale = make_HTML_compliant($db->get_escape_string($_POST['selling-price']));
+        $p_vendor_cost = make_HTML_compliant($db->get_escape_string($_POST['cost-price']));
+        $p_selling_price = make_HTML_compliant($db->get_escape_string($_POST['selling-price']));
 
         $query = "UPDATE products SET";
-        $query .= " name ='{$p_name}', quantity ='{$p_quantity}', cost_price ='{$p_cost}', sale_price ='{$p_sale}', category_id ='{$p_cat}' ";
+        $query .= " name ='{$p_name}', quantity ='{$p_quantity}', cost_price ='{$p_vendor_cost}', sale_price ='{$p_selling_price}', category_id ='{$p_category}' ";
         $query .= " WHERE id ='{$single_product['id']}'";
 
         $result = $db->run_query($query);

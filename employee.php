@@ -47,7 +47,9 @@ $products_sold = find_highest_selling_product('10');
                         <tbody>
                         <?php foreach ($products_sold as $product_sold): ?>
                             <tr>
-                                <td><?php echo make_HTML_compliant(capitalize_first_letter($product_sold['name'])); ?></td>
+                                <td>
+                                    <?php echo make_HTML_compliant(capitalize_first_letter($product_sold['name'])); ?>
+                                </td>
                                 <td><?php echo (int)$product_sold['totalSold']; ?></td>
                                 <td><?php echo (int)$product_sold['totalQty']; ?></td>
                             </tr>

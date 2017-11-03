@@ -1,7 +1,7 @@
 <?php
 $page_title = 'Home Page';
 require_once('includes/load.php');
-if (!$session->isUserLoggedIn(true)) {
+if (!$session->isUserLoggedIn() == true) {
     redirect_to_page('index.php', false);
 }
 ?>

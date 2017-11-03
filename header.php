@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        <?php if (!empty($page_title))
+        <?php if (!empty($page_title)) {
             echo make_HTML_compliant($page_title);
-        elseif (!empty($user))
+        } elseif (!empty($user)) {
             echo ucfirst($user['name']);
-        else echo "DB Inventory System";
+        } else {
+            echo "DB Inventory System";
+        }
         ?>
 
     </title>
@@ -18,18 +20,13 @@
 </head>
 <body>
 
-<?php if ($session->isUserLoggedIn(true)): ?>
+<?php if ($session->isUserLoggedIn() == true): ?>
 
     <?php if ($user['user_level'] === '1'): ?>
-        <!-- admin menu -->
         <?php include_once('admin_menu.php'); ?>
-
     <?php elseif ($user['user_level'] === '2'): ?>
-        <!-- Special user -->
         <?php include_once('manager_menu.php'); ?>
-
     <?php elseif ($user['user_level'] === '3'): ?>
-        <!-- User menu -->
         <?php include_once('employee_menu.php'); ?>
     <?php endif; ?>
 

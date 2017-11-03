@@ -5,11 +5,13 @@ validate_access_level(3);
 ?>
 <?php
 $user_id = (int)$_GET['id'];
+
 if (empty($user_id)):
     redirect_to_page('home.php', false);
-else:
-    $user_p = find_record_by_id('users', $user_id);
 endif;
+
+$user_p = find_record_by_id('users', $user_id);
+
 ?>
 
 <?php
@@ -105,7 +107,6 @@ if (isset($_POST['update-pass'])) {
                             <td> <?php echo make_HTML_compliant(ucwords($user_p['username'])) ?> </td>
 
                             <td>
-
                                 <?php if ($user_p['status'] === '1'): ?>
                                     <?php echo 'Administrator' ?>
                                 <?php elseif ($user_p['status'] === '2'): ?>
@@ -157,7 +158,6 @@ if (isset($_POST['update-pass'])) {
             </div>
         </div>
 
-
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading clearfix">
@@ -183,6 +183,5 @@ if (isset($_POST['update-pass'])) {
     </div>
 
 </div>
-
 
 <?php include_once('footer.php'); ?>

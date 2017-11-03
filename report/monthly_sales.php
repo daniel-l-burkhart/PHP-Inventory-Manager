@@ -5,7 +5,7 @@ validate_access_level(1);
 ?>
 <?php
 $year = date('Y');
-$sales = monthlySales($year);
+$sales = get_sales_for_the_month($year);
 ?>
 <?php include_once('../header.php'); ?>
 

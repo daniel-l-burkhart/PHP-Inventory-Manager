@@ -1,7 +1,7 @@
 <?php
 require_once('../includes/load.php');
 
-if (!$session->isUserLoggedIn(true)) {
+if (!$session->isUserLoggedIn() == true) {
     redirect_to_page('index.php', false);
 }
 ?>
@@ -9,13 +9,10 @@ if (!$session->isUserLoggedIn(true)) {
 <?php
 
 $html = '';
-
 if (isset($_POST['product_name']) && strlen($_POST['product_name'])) {
 
     $products = find_product_by_title($_POST['product_name']);
-
     if ($products) {
-
         foreach ($products as $product):
             $html .= "<li class=\"list-group-item\">";
             $html .= $product['name'];
@@ -58,7 +55,6 @@ if (isset($_POST['p_name']) && strlen($_POST['p_name'])) {
             $html .= "<button type=\"submit\" name=\"add_sale\" class=\"btn btn-primary\">Add sale</button>";
             $html .= "</td>";
             $html .= "</tr>";
-
         }
 
     } else {

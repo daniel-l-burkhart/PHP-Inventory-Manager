@@ -18,6 +18,7 @@ if (!$e_user) {
 if (isset($_POST['update'])) {
     $req_fields = array('name', 'username', 'level');
     validate_fields($req_fields);
+
     if (empty($errors)) {
 
         $id = (int)$e_user['id'];
@@ -26,7 +27,8 @@ if (isset($_POST['update'])) {
         $level = (int)$db->get_escape_string($_POST['level']);
         $status = make_HTML_compliant($db->get_escape_string($_POST['status']));
 
-        $sql = "UPDATE users SET name ='{$name}', username ='{$username}',user_level='{$level}',status='{$status}' WHERE id='{$db->get_escape_string($id)}'";
+        $sql = "UPDATE users SET name ='{$name}', username ='{$username}',user_level='{$level}',status='{$status}' ";
+        $sql .= " WHERE id='{$db->get_escape_string($id)}'";
 
         $result = $db->run_query($sql);
         if ($result && $db->affected_rows() === 1) {
@@ -47,12 +49,15 @@ if (isset($_POST['update'])) {
 if (isset($_POST['update-pass'])) {
     $req_fields = array('password');
     validate_fields($req_fields);
+
     if (empty($errors)) {
+
         $id = (int)$e_user['id'];
         $password = make_HTML_compliant($db->get_escape_string($_POST['password']));
         $h_pass = sha1($password);
         $sql = "UPDATE users SET password='{$h_pass}' WHERE id='{$db->get_escape_string($id)}'";
         $result = $db->run_query($sql);
+
         if ($result && $db->affected_rows() === 1) {
             $session->msg('success', "User password has been updated ");
             redirect_to_page('edit_user.php?id=' . (int)$e_user['id'], false);
@@ -95,8 +100,9 @@ if (isset($_POST['update-pass'])) {
                         <label for="level">User Role</label>
                         <select class="form-control" name="level">
                             <?php foreach ($groups as $group): ?>
-                                <option <?php if ($group['group_level'] === $e_user['user_level']) echo 'selected="selected"'; ?>
-                                        value="<?php echo $group['group_level']; ?>"><?php echo ucwords($group['group_name']); ?></option>
+                                <option <?php if ($group['group_level'] === $e_user['user_level'])
+                                    echo 'selected="selected"'; ?> value="<?php echo $group['group_level']; ?>">
+                                    <?php echo ucwords($group['group_name']); ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -141,6 +147,6 @@ if (isset($_POST['update-pass'])) {
             </div>
         </div>
     </div>
-
 </div>
+
 <?php include_once('../footer.php'); ?>

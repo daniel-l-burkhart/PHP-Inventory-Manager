@@ -28,25 +28,25 @@ validate_access_level(1);
             </div>
             <div class="panel-body">
 
-                    <form class="clearfix" method="post" action="sale_report_process.php">
-                        <div class="form-group">
-                            <label class="form-label">Date Range</label>
-                            <div class="input-group">
-                                <input type="text" class="datepicker form-control" name="start-date" placeholder="From">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-menu-right"></i></span>
-                                <input type="text" class="datepicker form-control" name="end-date" placeholder="To">
-                            </div>
+                <form class="clearfix" method="post" action="sale_report_process.php">
+                    <div class="form-group">
+                        <label class="form-label">Date Range</label>
+                        <div class="input-group">
+                            <input type="text" class="datepicker form-control" name="start-date" placeholder="From">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-menu-right"></i></span>
+                            <input type="text" class="datepicker form-control" name="end-date" placeholder="To">
                         </div>
-                        <div class="form-group">
-                            <button type="submit" name="submit" class="btn btn-primary">Generate Report</button>
-                        </div>
-                    </form>
-                </div>
-
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="submit" class="btn btn-primary">Generate Report</button>
+                    </div>
+                </form>
             </div>
-        </div>
 
+        </div>
     </div>
+
+</div>
 </div>
 
 <?php include_once('../footer.php'); ?>

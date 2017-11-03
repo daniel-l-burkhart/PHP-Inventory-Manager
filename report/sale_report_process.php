@@ -4,6 +4,7 @@ $results = '';
 require_once('../includes/load.php');
 validate_access_level(3);
 ?>
+
 <?php
 if (isset($_POST['submit'])) {
     $req_dates = array('start-date', 'end-date');

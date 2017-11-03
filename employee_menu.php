@@ -32,7 +32,8 @@
                         Products <span class="caret"></span></a>
 
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/~dburkhart1/project2/product/product.php">View products</a>
+                        <li>
+                            <a class="dropdown-item" href="/~dburkhart1/project2/product/product.php">View products</a>
                         </li>
                     </ul>
                 </li>
@@ -45,7 +46,9 @@
 
                     <ul class="dropdown-menu">
 
-                        <li><a class="dropdown-item" href="/~dburkhart1/project2/sale/add_sale.php">Add Sale</a></li>
+                        <li>
+                            <a class="dropdown-item" href="/~dburkhart1/project2/sale/add_sale.php">Add Sale</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -58,13 +61,13 @@
                        aria-expanded="false">
                         <?php echo $user['name'] ?>
                         <span class="caret"></span></a>
+
                     <ul class="dropdown-menu">
                         <li>
                             <a href="/~dburkhart1/project2/profile.php?id=<?php echo (int)$user['id']; ?>">
                                 <i class="glyphicon glyphicon-user"></i>
                                 Profile
                             </a>
-
                         </li>
 
                         <li role="separator" class="divider"></li>

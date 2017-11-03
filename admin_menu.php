@@ -14,8 +14,13 @@
 
         <div class="collapse navbar-collapse" id="inv-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a href="/~dburkhart1/project2/admin.php"> <i class="glyphicon glyphicon-home"></i>
-                        Dashboard <span class="sr-only">(current)</span></a></li>
+
+                <li class="nav-item">
+                    <a href="/~dburkhart1/project2/admin.php">
+                        <i class="glyphicon glyphicon-home"></i>
+                        Dashboard <span class="sr-only">(current)</span>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="/~dburkhart1/project2/category/category.php">

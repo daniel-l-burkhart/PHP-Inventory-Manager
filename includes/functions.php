@@ -49,7 +49,8 @@ function make_alert_msg($msg = '')
     $output = array();
     if (!empty($msg)) {
         foreach ($msg as $key => $value) {
-            $output = "<div class=\"alert alert-{$key}\"><a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>";
+            $output = "<div class=\"alert alert-{$key}\"> ";
+            $output .= "<a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a> ";
             $output .= make_HTML_compliant(capitalize_first_letter($value));
             $output .= "</div>";
         }

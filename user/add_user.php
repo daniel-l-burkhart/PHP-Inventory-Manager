@@ -20,13 +20,9 @@ if (isset($_POST['add_user'])) {
         $password = sha1($password);
 
         if (get_user_level() === '1') {
-
             $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','1')";
-
         } else {
-
             $query = "INSERT INTO users (name,username,password,user_level,status) VALUES ('{$name}', '{$username}', '{$password}', '{$user_level}','0')";
-
         }
 
         if ($db->run_query($query)) {

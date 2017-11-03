@@ -6,10 +6,9 @@ validate_access_level(1);
 ?>
 <?php
 
-$category = find_record_by_id('categories', (int)$_GET['id']);
+$currCategory = find_record_by_id('categories', (int)$_GET['id']);
 
-
-if (!$category) {
+if (!$currCategory) {
     $session->msg("danger", "Missing category id.");
     redirect_to_page('category.php');
 }
@@ -20,11 +19,11 @@ if (isset($_POST['edit_cat'])) {
 
     $req_field = array('category-name');
     validate_fields($req_field);
-    $cat_name = make_HTML_compliant($db->get_escape_string($_POST['category-name']));
+    $category_name = make_HTML_compliant($db->get_escape_string($_POST['category-name']));
 
     if (empty($errors)) {
-        $sql = "UPDATE categories SET name='{$cat_name}'";
-        $sql .= " WHERE id='{$category['id']}'";
+        $sql = "UPDATE categories SET name='{$category_name}'";
+        $sql .= " WHERE id='{$currCategory['id']}'";
         $result = $db->run_query($sql);
 
         if ($result && $db->affected_rows() === 1) {
@@ -58,14 +57,14 @@ if (isset($_POST['edit_cat'])) {
             <div class="panel-heading">
                 <strong>
                     <span class="glyphicon glyphicon-th"></span>
-                    <span>Editing <?php echo make_HTML_compliant(ucfirst($category['name'])); ?></span>
+                    <span>Editing <?php echo make_HTML_compliant(ucfirst($currCategory['name'])); ?></span>
                 </strong>
             </div>
             <div class="panel-body">
-                <form method="post" action="edit_category.php?id=<?php echo (int)$category['id']; ?>">
+                <form method="post" action="edit_category.php?id=<?php echo (int)$currCategory['id']; ?>">
                     <div class="form-group">
                         <input type="text" class="form-control" name="category-name"
-                               value="<?php echo make_HTML_compliant(ucfirst($category['name'])); ?>">
+                               value="<?php echo make_HTML_compliant(ucfirst($currCategory['name'])); ?>">
                     </div>
                     <button type="submit" name="edit_cat" class="btn btn-primary">Update category</button>
                 </form>

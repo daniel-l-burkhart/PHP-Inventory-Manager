@@ -72,7 +72,9 @@ $unapproved_users = unapproved_users_count();
                         <tr>
                             <td><?php echo make_HTML_compliant(ucwords($a_user['name'])) ?></td>
                             <td><?php echo make_HTML_compliant(ucwords($a_user['username'])) ?></td>
-                            <td class="text-center"><?php echo make_HTML_compliant(ucwords($a_user['group_name'])) ?></td>
+                            <td class="text-center">
+                                <?php echo make_HTML_compliant(ucwords($a_user['group_name'])) ?>
+                            </td>
 
                             <td><?php echo read_date($a_user['last_login']) ?></td>
                             <td class="text-center">

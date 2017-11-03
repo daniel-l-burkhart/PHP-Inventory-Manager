@@ -79,7 +79,6 @@ $all_sales = find_all_sales();
                                     </div>
                                 </td>
                             <?php endif; ?>
-
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

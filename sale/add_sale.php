@@ -1,15 +1,14 @@
 <?php
 $page_title = 'Add Sale';
 require_once('../includes/load.php');
-
 validate_access_level(3);
+
 ?>
 <?php
 
 if (isset($_POST['add_sale'])) {
 
     $req_fields = array('s_id', 'quantity', 'price', 'total', 'date');
-
     validate_fields($req_fields);
 
     if (empty($errors)) {
@@ -19,7 +18,7 @@ if (isset($_POST['add_sale'])) {
         $s_total = $db->get_escape_string($_POST['total']);
         $date = $db->get_escape_string($_POST['date']);
 
-        $sql = "INSERT INTO sales (product_id,quantity,price,date) VALUES ('{$p_id}','{$s_quantity}','{$s_total}',NOW());";
+        $sql = " INSERT INTO sales (product_id,quantity,price,date) VALUES ('{$p_id}','{$s_quantity}','{$s_total}',NOW());";
 
         if ($db->run_query($sql)) {
 
